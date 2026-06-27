@@ -1,0 +1,91 @@
+[
+  {
+    "id": "evt_totals_only",
+    "sport_key": "soccer_fifa_world_cup",
+    "commence_time": "2026-06-22T19:00:00Z",
+    "home_team": "France",
+    "away_team": "Germany",
+    "bookmakers": [
+      {
+        "key": "pinnacle",
+        "title": "Pinnacle",
+        "markets": [
+          {
+            "key": "totals",
+            "outcomes": [
+              {"name": "Over", "price": 1.90, "point": 2.5},
+              {"name": "Under", "price": 1.90, "point": 2.5}
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_incomplete_h2h",
+    "sport_key": "soccer_fifa_world_cup",
+    "commence_time": "2026-06-22T22:00:00Z",
+    "home_team": "Spain",
+    "away_team": "Italy",
+    "bookmakers": [
+      {
+        "key": "shadybook",
+        "title": "Shady Book",
+        "markets": [
+          {
+            "key": "h2h",
+            "outcomes": [
+              {"name": "Spain", "price": 1.90},
+              {"name": "Italy", "price": 4.00}
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_line_disagreement",
+    "sport_key": "soccer_fifa_world_cup",
+    "commence_time": "2026-06-23T19:00:00Z",
+    "home_team": "England",
+    "away_team": "Portugal",
+    "bookmakers": [
+      {
+        "key": "bookA",
+        "markets": [
+          {
+            "key": "totals",
+            "outcomes": [
+              {"name": "Over", "price": 1.95, "point": 2.5},
+              {"name": "Under", "price": 1.95, "point": 2.5}
+            ]
+          }
+        ]
+      },
+      {
+        "key": "bookB",
+        "markets": [
+          {
+            "key": "totals",
+            "outcomes": [
+              {"name": "Over", "price": 1.90, "point": 2.5},
+              {"name": "Under", "price": 2.00, "point": 2.5}
+            ]
+          }
+        ]
+      },
+      {
+        "key": "bookC",
+        "markets": [
+          {
+            "key": "totals",
+            "outcomes": [
+              {"name": "Over", "price": 2.10, "point": 3.0},
+              {"name": "Under", "price": 1.80, "point": 3.0}
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

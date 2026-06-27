@@ -1,0 +1,115 @@
+{
+  "event": {
+    "event_ticker": "KXWC2026-USAMEX",
+    "series_ticker": "KXWC2026",
+    "title": "FIFA World Cup: United States vs Mexico",
+    "sub_title": "2026-06-21",
+    "markets": [
+      {
+        "ticker": "KXWC2026-USAMEX-USA",
+        "event_ticker": "KXWC2026-USAMEX",
+        "title": "United States vs Mexico",
+        "yes_sub_title": "United States to win",
+        "status": "active",
+        "yes_bid": 50, "yes_ask": 54, "no_bid": 46, "no_ask": 50, "last_price": 52,
+        "volume": 1200
+      },
+      {
+        "ticker": "KXWC2026-USAMEX-DRAW",
+        "event_ticker": "KXWC2026-USAMEX",
+        "title": "United States vs Mexico",
+        "yes_sub_title": "Draw",
+        "status": "active",
+        "yes_bid": 24, "yes_ask": 28, "last_price": 26
+      },
+      {
+        "ticker": "KXWC2026-USAMEX-MEX",
+        "event_ticker": "KXWC2026-USAMEX",
+        "title": "United States vs Mexico",
+        "yes_sub_title": "Mexico to win",
+        "status": "active",
+        "yes_bid": 20, "yes_ask": 24, "last_price": 22
+      },
+      {
+        "ticker": "KXWC2026-USAMEX-OV25",
+        "event_ticker": "KXWC2026-USAMEX",
+        "title": "Total goals",
+        "yes_sub_title": "Over 2.5",
+        "status": "active",
+        "yes_bid": 48, "yes_ask": 52, "last_price": 50
+      },
+      {
+        "ticker": "KXWC2026-USAMEX-UN25",
+        "event_ticker": "KXWC2026-USAMEX",
+        "title": "Total goals",
+        "yes_sub_title": "Under 2.5",
+        "status": "active",
+        "yes_bid": 48, "yes_ask": 52, "last_price": 50
+      },
+      {
+        "ticker": "KXWC2026-USAMEX-USAOV15",
+        "event_ticker": "KXWC2026-USAMEX",
+        "title": "Team total goals",
+        "yes_sub_title": "United States Over 1.5",
+        "status": "active",
+        "yes_bid": 42, "yes_ask": 46, "last_price": 44
+      },
+      {
+        "ticker": "KXWC2026-USAMEX-BTTSY",
+        "event_ticker": "KXWC2026-USAMEX",
+        "title": "Both teams to score",
+        "yes_sub_title": "Both teams to score - Yes",
+        "status": "active",
+        "yes_bid": 51, "yes_ask": 55, "last_price": 53
+      },
+      {
+        "ticker": "KXWC2026-USAMEX-BTTSN",
+        "event_ticker": "KXWC2026-USAMEX",
+        "title": "Both teams to score",
+        "yes_sub_title": "Both teams to score - No",
+        "status": "active",
+        "yes_bid": 45, "yes_ask": 49, "last_price": 47
+      },
+      {
+        "ticker": "KXWC2026-USAMEX-CS11",
+        "event_ticker": "KXWC2026-USAMEX",
+        "title": "Correct score",
+        "yes_sub_title": "Score 1-1",
+        "status": "active",
+        "yes_bid": 9, "yes_ask": 13, "last_price": 11
+      },
+      {
+        "ticker": "KXWC2026-USAMEX-CORN95",
+        "event_ticker": "KXWC2026-USAMEX",
+        "title": "Total corners",
+        "yes_sub_title": "Total corners Over 9.5",
+        "status": "active",
+        "yes_bid": 55, "yes_ask": 60, "last_price": 58
+      },
+      {
+        "ticker": "KXWC2026-USAMEX-PULISIC",
+        "event_ticker": "KXWC2026-USAMEX",
+        "title": "Goalscorer",
+        "yes_sub_title": "Christian Pulisic to score anytime",
+        "status": "active",
+        "yes_bid": 38, "yes_ask": 42, "last_price": 40
+      },
+      {
+        "ticker": "KXWC2026-USAMEX-1HOV15",
+        "event_ticker": "KXWC2026-USAMEX",
+        "title": "First half goals",
+        "yes_sub_title": "Over 1.5 - First Half",
+        "status": "active",
+        "yes_bid": 30, "yes_ask": 34, "last_price": 32
+      },
+      {
+        "ticker": "KXWC2026-USAMEX-MYSTERY",
+        "event_ticker": "KXWC2026-USAMEX",
+        "title": "Manager sacked next",
+        "yes_sub_title": "Something unclassifiable",
+        "status": "active",
+        "yes_bid": 5, "yes_ask": 9, "last_price": 7
+      }
+    ]
+  }
+}

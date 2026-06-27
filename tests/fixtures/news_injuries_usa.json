@@ -1,0 +1,18 @@
+{
+  "get": "injuries",
+  "parameters": { "team": "USA" },
+  "errors": [],
+  "results": 2,
+  "response": [
+    {
+      "player": { "id": 101, "name": "Sergino Dest", "type": "Missing Fixture", "reason": "Knee Injury" },
+      "team": { "id": "USA", "name": "United States" },
+      "fixture": { "id": 9001 }
+    },
+    {
+      "player": { "id": 102, "name": "Tyler Adams", "type": "Questionable", "reason": "Hamstring" },
+      "team": { "id": "USA", "name": "United States" },
+      "fixture": { "id": 9001 }
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+[
+  {
+    "id": "evt_usa_mex",
+    "sport_key": "soccer_fifa_world_cup",
+    "commence_time": "2026-06-21T19:00:00Z",
+    "home_team": "United States",
+    "away_team": "Mexico",
+    "bookmakers": [
+      {
+        "key": "pinnacle",
+        "title": "Pinnacle",
+        "markets": [
+          {
+            "key": "h2h",
+            "outcomes": [
+              {"name": "United States", "price": 2.40},
+              {"name": "Mexico", "price": 3.00},
+              {"name": "Draw", "price": 3.20}
+            ]
+          },
+          {
+            "key": "totals",
+            "outcomes": [
+              {"name": "Over", "price": 1.95, "point": 2.5},
+              {"name": "Under", "price": 1.95, "point": 2.5}
+            ]
+          },
+          {
+            "key": "team_totals",
+            "outcomes": [
+              {"name": "Over", "price": 1.90, "point": 1.5, "description": "United States"},
+              {"name": "Under", "price": 1.90, "point": 1.5, "description": "United States"},
+              {"name": "Over", "price": 2.05, "point": 1.5, "description": "Mexico"},
+              {"name": "Under", "price": 1.80, "point": 1.5, "description": "Mexico"}
+            ]
+          }
+        ]
+      },
+      {
+        "key": "betfair",
+        "title": "Betfair",
+        "markets": [
+          {
+            "key": "h2h",
+            "outcomes": [
+              {"name": "United States", "price": 2.45},
+              {"name": "Mexico", "price": 2.95},
+              {"name": "Draw", "price": 3.25}
+            ]
+          },
+          {
+            "key": "totals",
+            "outcomes": [
+              {"name": "Over", "price": 2.00, "point": 2.5},
+              {"name": "Under", "price": 1.90, "point": 2.5}
+            ]
+          }
+        ]
+      },
+      {
+        "key": "williamhill",
+        "title": "William Hill",
+        "markets": [
+          {
+            "key": "h2h",
+            "outcomes": [
+              {"name": "United States", "price": 2.38},
+              {"name": "Mexico", "price": 3.10},
+              {"name": "Draw", "price": 3.15}
+            ]
+          },
+          {
+            "key": "totals",
+            "outcomes": [
+              {"name": "Over", "price": 1.91, "point": 2.5},
+              {"name": "Under", "price": 1.99, "point": 2.5}
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_bra_arg",
+    "sport_key": "soccer_fifa_world_cup",
+    "commence_time": "2026-06-21T22:00:00Z",
+    "home_team": "Brazil",
+    "away_team": "Argentina",
+    "bookmakers": [
+      {
+        "key": "pinnacle",
+        "title": "Pinnacle",
+        "markets": [
+          {
+            "key": "h2h",
+            "outcomes": [
+              {"name": "Brazil", "price": 2.10},
+              {"name": "Argentina", "price": 3.40},
+              {"name": "Draw", "price": 3.30}
+            ]
+          },
+          {
+            "key": "totals",
+            "outcomes": [
+              {"name": "Over", "price": 2.05, "point": 2.5},
+              {"name": "Under", "price": 1.85, "point": 2.5}
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

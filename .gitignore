@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# uv / venv
+.venv/
+
+# local cache (disk-cached API responses for a match-day)
+.cache/
+
+# rendered daily reports + persisted run/grade output (S3 is the source of truth)
+reports/
+output/
+
+# CDK build artifacts
+infra/build/
+infra/cdk.out/
+
+# macOS
+.DS_Store
+
+# env
+.env

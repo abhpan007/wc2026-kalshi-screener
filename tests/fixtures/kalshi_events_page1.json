@@ -1,0 +1,17 @@
+{
+  "events": [
+    {
+      "event_ticker": "KXWC2026-USAMEX",
+      "series_ticker": "KXWC2026",
+      "title": "FIFA World Cup: United States vs Mexico",
+      "sub_title": "2026-06-21"
+    },
+    {
+      "event_ticker": "KXNBA-LALBOS",
+      "series_ticker": "KXNBA",
+      "title": "NBA Finals: Lakers vs Celtics",
+      "sub_title": "unrelated"
+    }
+  ],
+  "cursor": "PAGE2"
+}

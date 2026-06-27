@@ -1,0 +1,7 @@
+{
+  "get": "injuries",
+  "parameters": { "team": "MEX" },
+  "errors": [],
+  "results": 0,
+  "response": []
+}

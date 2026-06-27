@@ -1,0 +1,4 @@
+# CDK app dependencies (separate from the screener package). Install into a
+# venv before `cdk deploy`:  pip install -r infra/requirements.txt
+aws-cdk-lib>=2.140.0
+constructs>=10.3.0
