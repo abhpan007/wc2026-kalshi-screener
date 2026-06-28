@@ -63,6 +63,26 @@ class DailyReport(BaseModel):
     def total_flagged(self) -> int:
         return sum(len(m.screen.flagged) for m in self.matches)
 
+    @property
+    def liquidity(self) -> tuple[int, int]:
+        """(markets with a Kalshi price, total markets) across all matches — the
+        liquidity gauge. Edges are impossible until the first number is > 0."""
+        priced = total = 0
+        for m in self.matches:
+            for sm in (*m.screen.flagged, *m.screen.other):
+                total += 1
+                if sm.kalshi_price_cents is not None:
+                    priced += 1
+        return priced, total
+
+    def liquidity_line(self) -> str:
+        priced, total = self.liquidity
+        if total == 0:
+            return "Kalshi liquidity: no markets discovered."
+        if priced == 0:
+            return f"Kalshi liquidity: 0/{total} markets priced — no tradeable prices yet, so no edges are possible."
+        return f"Kalshi liquidity: {priced}/{total} markets priced."
+
 
 # --------------------------------------------------------------------------- #
 # formatting helpers
@@ -107,6 +127,8 @@ def render_markdown(report: DailyReport) -> str:
         f"_xG strategy: **{report.strategy.value}** · threshold: **{report.threshold_cents}¢** · "
         f"generated {report.generated_at.strftime('%Y-%m-%d %H:%M %Z')}_"
     )
+    L.append("")
+    L.append(f"**{report.liquidity_line()}**")
     L.append("")
 
     if not report.matches:
@@ -261,6 +283,7 @@ def render_html(report: DailyReport) -> str:
         f"threshold: <b>{report.threshold_cents}¢</b> · "
         f"generated {report.generated_at.strftime('%Y-%m-%d %H:%M %Z')}</p>"
     )
+    P.append(f"<p><b>{report.liquidity_line()}</b></p>")
 
     if not report.matches:
         P.append("<p><i>No World Cup matches discovered for this date.</i></p>")

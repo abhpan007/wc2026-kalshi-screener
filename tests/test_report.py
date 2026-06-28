@@ -100,6 +100,17 @@ def test_suppressed_prop_is_surfaced():
     assert "Pulisic" in md
 
 
+def test_liquidity_line_reports_priced_count():
+    # One priced market with no Kalshi price -> 0/1 priced.
+    over = OverUnderSelection(line=2.5, side="over")
+    fv = FairValue(selection=over, priced=True, probability=0.52, fair_price_cents=52, lambdas_used=_lam(), confidence=Confidence.HIGH)
+    mr = MatchReport(match=_match(), lambdas=_lam(), screen=screen_match([fv], threshold_cents=3))
+    rpt = _report([mr])
+    assert rpt.liquidity == (0, 1)
+    md = render_markdown(rpt)
+    assert "0/1 markets priced" in md and "no edges are possible" in md
+
+
 def test_fair_value_sheet_shown_without_kalshi_prices():
     # Model priced markets with NO Kalshi price (the current real-world case).
     over = OverUnderSelection(line=2.5, side="over")  # kalshi_price_cents stays None
