@@ -165,6 +165,8 @@ def _process_discovered(
             news_known=home_news.known and away_news.known,
             num_books=reference.num_books,
             first_half_fraction=settings.first_half_fraction,
+            extra_time_fraction=settings.extra_time_fraction,
+            penalty_split_home=settings.penalty_split_home,
             max_goals=settings.max_goals,
         )
         if lambdas is not None

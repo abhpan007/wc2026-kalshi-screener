@@ -192,8 +192,8 @@ def _markdown_match(m: MatchReport, threshold: int) -> list[str]:
 
 # Headline markets for the fair-value sheet (correct scores are a long tail and
 # omitted here — they're in the persisted report.json).
-_SHEET_KINDS = ("match_result", "over_under", "team_total", "btts")
-_KIND_ORDER = {"match_result": 0, "over_under": 1, "team_total": 2, "btts": 3}
+_SHEET_KINDS = ("match_result", "advance", "over_under", "team_total", "btts")
+_KIND_ORDER = {"match_result": 0, "advance": 1, "over_under": 2, "team_total": 3, "btts": 4}
 
 
 def _sheet_markets(m: MatchReport):

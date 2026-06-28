@@ -12,11 +12,12 @@ so they return None.
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Literal, Optional
 
 from pydantic import BaseModel, Field
 
 from .models import (
+    AdvanceSelection,
     BttsSelection,
     CorrectScoreSelection,
     MatchResultSelection,
@@ -28,14 +29,21 @@ from .models import (
 
 
 class MatchResultInput(BaseModel):
-    """A final result for grading. Half-time scores are optional; without them,
-    first-half markets are ungradeable (returned as None, not guessed)."""
+    """A final result for grading.
+
+    ``home_score``/``away_score`` are the 90-minute (regulation) score — that's
+    what game-level markets settle on. Half-time scores are optional (needed only
+    for first-half markets). ``advanced`` ("home"/"away") records who went through
+    after extra time/penalties — needed only to grade knockout "to advance"
+    markets; without it those are ungradeable.
+    """
 
     match_id: str
     home_score: int = Field(ge=0)
     away_score: int = Field(ge=0)
     ht_home: Optional[int] = Field(default=None, ge=0)
     ht_away: Optional[int] = Field(default=None, ge=0)
+    advanced: Optional[Literal["home", "away"]] = None
 
 
 def _scores_for(selection: Selection, result: MatchResultInput) -> Optional[tuple[int, int]]:
@@ -54,6 +62,13 @@ def yes_resolves(selection: Selection, result: MatchResultInput) -> Optional[boo
     score are a push (stake returned) — graded as None so they don't count as a
     win or a loss. The usual half-lines never push.
     """
+    # "To advance" resolves on the full tie (ET/pens), not the 90' score — so it
+    # needs the explicit ``advanced`` outcome, not the scoreline.
+    if isinstance(selection, AdvanceSelection):
+        if result.advanced is None:
+            return None
+        return result.advanced == selection.team
+
     scores = _scores_for(selection, result)
     if scores is None:
         return None

@@ -13,6 +13,7 @@ from screener.clients.kalshi_markets import (
     parse_matchup_title,
 )
 from screener.models import (
+    AdvanceSelection,
     BttsSelection,
     CornersSelection,
     CorrectScoreSelection,
@@ -79,6 +80,13 @@ def test_map_btts():
     assert isinstance(sel, BttsSelection) and sel.outcome == "yes"
 
 
+def test_map_advance():
+    home_sel = map_series_market("advance", Period.FULL, _m("Jordan advances"), home=HOME, away=AWAY)
+    away_sel = map_series_market("advance", Period.FULL, _m("Argentina advances"), home=HOME, away=AWAY)
+    assert isinstance(home_sel, AdvanceSelection) and home_sel.team == "home"
+    assert isinstance(away_sel, AdvanceSelection) and away_sel.team == "away"
+
+
 def test_map_correct_score_team_attributed():
     # "Argentina wins 2-0" with away=Argentina -> away scored 2, home 0.
     away_win = map_series_market("correct_score", Period.FULL, _m("Argentina wins 2-0"), home=HOME, away=AWAY)
@@ -115,13 +123,13 @@ def test_discover_groups_match_across_series():
     assert dm.home_name == "Jordan" and dm.away_name == "Argentina"
     assert dm.match_date == date(2026, 6, 21)
     assert dm.match_key == "26JUN21JORARG"
-    # 3 (game) + 2 (total) + 2 (team total) + 1 (btts) + 2 (score) + 1 (corners) + 1 (1H) = 12
-    assert len(dm.selections) == 12
+    # 3 game + 2 advance + 2 total + 2 team total + 1 btts + 2 score + 1 corners + 1 1H = 14
+    assert len(dm.selections) == 14
     assert dm.unmapped == []
     kinds = {type(s).__name__ for s in dm.selections}
     assert {
-        "MatchResultSelection", "OverUnderSelection", "TeamTotalSelection",
-        "BttsSelection", "CorrectScoreSelection", "CornersSelection",
+        "MatchResultSelection", "AdvanceSelection", "OverUnderSelection",
+        "TeamTotalSelection", "BttsSelection", "CorrectScoreSelection", "CornersSelection",
     } <= kinds
     # First-half total carries the 1H period.
     assert any(s.period == Period.FIRST_HALF for s in dm.selections)

@@ -49,13 +49,14 @@ report, out = sys.argv[1], sys.argv[2]
 r = json.load(open(report))
 with open(out, "w", newline="") as f:
     w = csv.writer(f)
-    w.writerow(["match_id", "matchup", "home_score", "away_score", "ht_home", "ht_away"])
+    w.writerow(["match_id", "matchup", "home_score", "away_score", "ht_home", "ht_away", "advanced"])
     for m in r["matches"]:
         mt = m["match"]
-        w.writerow([mt["match_id"], f"{mt['home']['name']} vs {mt['away']['name']}", "", "", "", ""])
+        w.writerow([mt["match_id"], f"{mt['home']['name']} vs {mt['away']['name']}", "", "", "", "", ""])
 PY
   echo
-  echo "➜ Fill in home_score / away_score in:  $RESULTS"
-  echo "  (ht_home / ht_away optional — only needed to grade first-half markets)"
+  echo "➜ Fill in home_score / away_score (90-min score) in:  $RESULTS"
+  echo "  (ht_home/ht_away optional — for first-half markets; advanced=home/away"
+  echo "   optional — for knockout 'to advance' markets, who went through)"
   echo "  Then re-run:  bash grade_day.sh $DAY"
 fi

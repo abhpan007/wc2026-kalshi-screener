@@ -104,6 +104,14 @@ derives every game-level market by summing the joint scoreline distribution.
    (configurable). An approximation — a real model would estimate a separate 1H
    rate. 1H markets are confidence-downgraded one notch as a result.
 
+**Knockout "to advance" markets** (`KXWCADVANCE`, 2-way, no draw) are priced by
+composing the 90-minute result with extra time + a penalty shootout:
+`P(advance) = P(win 90) + P(draw 90) × P(win the ET/pens)`. Extra time is modeled
+as Poisson over `extra_time_fraction` of a game and the shootout split by
+`penalty_split_home` (0.5 = coin flip) — both approximations, so advance markets
+are confidence-downgraded a notch. The regulation-time result market (`KXWCGAME`)
+still keeps its draw — penalties only decide advancement, not the 90' score.
+
 **Not modeled:** corners (need their own model — carried through unpriced and
 excluded from screening).
 
@@ -212,6 +220,8 @@ read from env, in Lambda from Secrets Manager / env.
 |---|---|---|
 | `SCREENER_XG_STRATEGY` | `book_anchored` | `book_anchored` or `form_blend` (stub) |
 | `SCREENER_FIRST_HALF_FRACTION` | `0.45` | 1H lambda as a fraction of full game |
+| `SCREENER_EXTRA_TIME_FRACTION` | `0.333` | extra-time goals as a fraction of a 90-min game (knockout "to advance" pricing) |
+| `SCREENER_PENALTY_SPLIT_HOME` | `0.5` | home share of a penalty shootout (0.5 = coin flip) |
 | `SCREENER_MAX_GOALS` | `15` | scoreline grid truncation |
 | `SCREENER_THRESHOLD_CENTS` | `3` | divergence flag threshold |
 | `SCREENER_TIMEZONE` | `America/Chicago` | display timezone |

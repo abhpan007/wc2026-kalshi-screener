@@ -29,6 +29,7 @@ from typing import Optional
 import structlog
 
 from ..models import (
+    AdvanceSelection,
     BttsSelection,
     CornersSelection,
     CorrectScoreSelection,
@@ -45,7 +46,8 @@ log = structlog.get_logger(__name__)
 # Series ticker -> (market kind, period). This is also the set discovery queries.
 # Spreads (KXWCSPREAD) and 2nd-half series are omitted: no model for them yet.
 GAME_MARKET_SERIES: dict[str, tuple[str, Period]] = {
-    "KXWCGAME": ("match_result", Period.FULL),
+    "KXWCGAME": ("match_result", Period.FULL),  # "Regulation Time" 3-way (keeps Tie)
+    "KXWCADVANCE": ("advance", Period.FULL),  # knockout 2-way "to advance" (incl. ET/pens)
     "KXWCTOTAL": ("over_under", Period.FULL),
     "KXWCTEAMTOTAL": ("team_total", Period.FULL),
     "KXWCBTTS": ("btts", Period.FULL),
@@ -163,6 +165,11 @@ def map_series_market(
             return attach(MatchResultSelection(outcome="draw"))
         team = _team_of(text, home, away)
         return attach(MatchResultSelection(outcome=team)) if team else None
+
+    if kind == "advance":
+        # "Colombia advances" / "Ghana advances" -> the team that advances.
+        team = _team_of(text, home, away)
+        return attach(AdvanceSelection(team=team)) if team else None
 
     if kind == "correct_score":
         sc = _SCORE.search(text)

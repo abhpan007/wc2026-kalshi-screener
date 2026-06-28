@@ -26,6 +26,12 @@ class Settings(BaseModel):
     first_half_fraction: float = Field(default=0.45, gt=0.0, lt=1.0)
     max_goals: int = Field(default=15, ge=5)
 
+    # Knockout "to advance" pricing: extra time as a fraction of a 90-min game
+    # (30 min ≈ 1/3), and the home team's share of a penalty shootout (0.5 = a
+    # coin flip — shootouts are near-random for teams level after 120 min).
+    extra_time_fraction: float = Field(default=1.0 / 3.0, gt=0.0, lt=1.0)
+    penalty_split_home: float = Field(default=0.5, ge=0.0, le=1.0)
+
     # --- screening knobs -------------------------------------------------- #
     # Divergence threshold: flag when |kalshi - fair| >= this many cents.
     threshold_cents: int = Field(default=3, ge=1, le=100)
@@ -50,6 +56,10 @@ class Settings(BaseModel):
             data["first_half_fraction"] = float(v)
         if (v := get("MAX_GOALS")) is not None:
             data["max_goals"] = int(v)
+        if (v := get("EXTRA_TIME_FRACTION")) is not None:
+            data["extra_time_fraction"] = float(v)
+        if (v := get("PENALTY_SPLIT_HOME")) is not None:
+            data["penalty_split_home"] = float(v)
         if (v := get("THRESHOLD_CENTS")) is not None:
             data["threshold_cents"] = int(v)
         if (v := get("TIMEZONE")) is not None:

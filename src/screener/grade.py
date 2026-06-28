@@ -244,12 +244,14 @@ def read_results_csv(path: Path) -> dict[str, MatchResultInput]:
             as_ = (row.get("away_score") or "").strip()
             if not mid or not hs or not as_:
                 continue
+            advanced = (row.get("advanced") or "").strip().lower() or None
             out[mid] = MatchResultInput(
                 match_id=mid,
                 home_score=int(hs),
                 away_score=int(as_),
                 ht_home=_int("ht_home"),
                 ht_away=_int("ht_away"),
+                advanced=advanced if advanced in ("home", "away") else None,
             )
     return out
 

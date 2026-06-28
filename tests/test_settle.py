@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from screener.models import (
+    AdvanceSelection,
     BttsSelection,
     CornersSelection,
     CorrectScoreSelection,
@@ -59,6 +60,14 @@ def test_first_half_needs_ht_scores():
     assert yes_resolves(sel, R) is None  # no HT scores -> ungradeable
     with_ht = MatchResultInput(match_id="m", home_score=2, away_score=1, ht_home=1, ht_away=0)
     assert yes_resolves(sel, with_ht) is True  # 1 goal in 1H > 0.5
+
+
+def test_advance_needs_advanced_field():
+    # Without the 'advanced' outcome, advance is ungradeable (90' score isn't enough).
+    assert yes_resolves(AdvanceSelection(team="home"), R) is None
+    won = MatchResultInput(match_id="m", home_score=1, away_score=1, advanced="home")
+    assert yes_resolves(AdvanceSelection(team="home"), won) is True
+    assert yes_resolves(AdvanceSelection(team="away"), won) is False
 
 
 def test_corners_and_unpriceable_return_none():

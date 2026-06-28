@@ -99,6 +99,10 @@ def wc_match_events(
             _mk(f"KXWCGAME-{key}-A", away, last_price=45),
             _mk(f"KXWCGAME-{key}-T", "Tie", last_price=25),
         ])],
+        "KXWCADVANCE": [ev("KXWCADVANCE", f"{home} vs {away}", [
+            _mk(f"KXWCADVANCE-{key}-H", f"{home} advances", last_price=42),
+            _mk(f"KXWCADVANCE-{key}-A", f"{away} advances", last_price=58),
+        ])],
         "KXWCTOTAL": [ev("KXWCTOTAL", f"{home} vs {away}: Total Goals", [
             _mk(f"KXWCTOTAL-{key}-1", "Over 1.5 goals scored", last_price=74),
             _mk(f"KXWCTOTAL-{key}-2", "Over 2.5 goals scored", yes_bid=over25_bid, yes_ask=over25_ask),

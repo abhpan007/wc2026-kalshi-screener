@@ -31,6 +31,7 @@ import structlog
 from pydantic import BaseModel, ConfigDict, Field
 
 from .models import (
+    AdvanceSelection,
     BttsSelection,
     Confidence,
     CornersSelection,
@@ -201,6 +202,8 @@ def _directions(fv: FairValue, side: EdgeSide) -> tuple[Optional[str], Optional[
             return None, FAVORS_HOME
         if sel.outcome == "away":
             return None, FAVORS_AWAY
+    if isinstance(sel, AdvanceSelection) and yes:
+        return None, (FAVORS_HOME if sel.team == "home" else FAVORS_AWAY)
     return None, None
 
 
@@ -220,6 +223,8 @@ def _selection_label(fv: FairValue) -> str:
         return f"BTTS {sel.outcome}{period}"
     if isinstance(sel, CorrectScoreSelection):
         return f"correct score {sel.home_score}-{sel.away_score}{period}"
+    if isinstance(sel, AdvanceSelection):
+        return f"{sel.team} advances"
     if isinstance(sel, CornersSelection):
         return f"corners ({sel.description})"
     if isinstance(sel, PlayerPropSelection):

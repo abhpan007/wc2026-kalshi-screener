@@ -6,6 +6,7 @@ from __future__ import annotations
 import pytest
 
 from screener.models import (
+    AdvanceSelection,
     BttsSelection,
     Confidence,
     CornersSelection,
@@ -17,7 +18,12 @@ from screener.models import (
     PlayerPropSelection,
     XgStrategy,
 )
-from screener.pricing.engine import assess_confidence, price_match, price_selection
+from screener.pricing.engine import (
+    advance_probabilities,
+    assess_confidence,
+    price_match,
+    price_selection,
+)
 from screener.pricing.poisson import PoissonModel
 
 
@@ -62,6 +68,37 @@ def test_player_prop_excluded_with_settlement_note():
     )
     assert not fv.priced and fv.excluded
     assert "last fair price" in fv.note.lower()
+
+
+def test_advance_probabilities_symmetric_is_fifty_fifty():
+    sym = MatchLambdas(lambda_home=1.4, lambda_away=1.4, strategy=XgStrategy.BOOK_ANCHORED)
+    h, a = advance_probabilities(sym)
+    assert h == pytest.approx(0.5, abs=1e-9)
+    assert h + a == pytest.approx(1.0, abs=1e-9)
+
+
+def test_advance_probabilities_favorite_advances_more():
+    fav = MatchLambdas(lambda_home=2.2, lambda_away=0.8, strategy=XgStrategy.BOOK_ANCHORED)
+    h, a = advance_probabilities(fav)
+    assert h > a
+    assert h + a == pytest.approx(1.0, abs=1e-9)
+
+
+def test_advance_prob_exceeds_win_prob_via_draw_share():
+    # P(advance) must be >= P(win in 90), since draws add a shootout chance.
+    lam = _lambdas()
+    win90 = PoissonModel(lam.lambda_home, lam.lambda_away).result_1x2().home
+    h, _ = advance_probabilities(lam)
+    assert h > win90
+
+
+def test_price_advance_selection():
+    fv = price_selection(AdvanceSelection(team="home"), _lambdas(), news_known=True, num_books=2)
+    assert fv.priced
+    exp_home, _ = advance_probabilities(_lambdas())
+    assert fv.probability == pytest.approx(exp_home)
+    # ET/penalty approximation downgrades confidence one notch (HIGH -> MEDIUM).
+    assert fv.confidence == Confidence.MEDIUM
 
 
 def test_first_half_scaling_lowers_over_prob():

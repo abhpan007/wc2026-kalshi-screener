@@ -234,6 +234,18 @@ class PlayerPropSelection(_BaseSelection):
     description: str = ""
 
 
+class AdvanceSelection(_BaseSelection):
+    """A knockout-round "to advance" market (2-way, no draw).
+
+    Unlike the regulation-time result, this resolves on the full tie incl. extra
+    time and penalties. It is priced by composing the 90-minute result with an
+    extra-time + shootout model (see the pricing engine), not from a book line.
+    """
+
+    kind: Literal["advance"] = "advance"
+    team: Literal["home", "away"]
+
+
 Selection = Annotated[
     Union[
         MatchResultSelection,
@@ -243,6 +255,7 @@ Selection = Annotated[
         CorrectScoreSelection,
         CornersSelection,
         PlayerPropSelection,
+        AdvanceSelection,
     ],
     Field(discriminator="kind"),
 ]

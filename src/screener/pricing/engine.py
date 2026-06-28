@@ -12,6 +12,7 @@ from __future__ import annotations
 import structlog
 
 from ..models import (
+    AdvanceSelection,
     BttsSelection,
     Confidence,
     CornersSelection,
@@ -34,6 +35,50 @@ log = structlog.get_logger(__name__)
 # the game). This is an APPROXIMATION — a real model would estimate a separate 1H
 # rate. Documented here and reflected in lowered confidence for 1H markets.
 DEFAULT_FIRST_HALF_FRACTION = 0.45
+
+# Knockout "to advance" defaults: extra time ≈ 1/3 of a 90-min game (30 min), and
+# a 50/50 penalty shootout. Both are approximations; advance confidence is
+# downgraded a notch to reflect them.
+DEFAULT_EXTRA_TIME_FRACTION = 1.0 / 3.0
+DEFAULT_PENALTY_SPLIT_HOME = 0.5
+
+
+def advance_probabilities(
+    lambdas: MatchLambdas,
+    *,
+    extra_time_fraction: float = DEFAULT_EXTRA_TIME_FRACTION,
+    penalty_split_home: float = DEFAULT_PENALTY_SPLIT_HOME,
+    max_goals: int = DEFAULT_MAX_GOALS,
+) -> tuple[float, float]:
+    """P(home advances), P(away advances) for a knockout tie.
+
+    A team advances by either winning in 90 minutes, or drawing in 90 and then
+    winning the extra-time + penalty resolution:
+
+        P(advance) = P(win 90) + P(draw 90) * P(win | level after 90)
+
+    Extra time is modeled as the same independent-Poisson over a fraction of a
+    full game; if still level after ET, the shootout is split by
+    ``penalty_split_home`` (0.5 = coin flip). The two advance probabilities sum
+    to 1 by construction.
+    """
+    full = PoissonModel(lambdas.lambda_home, lambdas.lambda_away, max_goals=max_goals)
+    r = full.result_1x2()
+
+    et = lambdas.scaled(extra_time_fraction)
+    et_r = PoissonModel(et.lambda_home, et.lambda_away, max_goals=max_goals).result_1x2()
+    # Win from a level game after 90: win in ET, else win the shootout.
+    q_home = et_r.home + et_r.draw * penalty_split_home
+    q_away = et_r.away + et_r.draw * (1.0 - penalty_split_home)
+
+    p_home = r.home + r.draw * q_home
+    p_away = r.away + r.draw * q_away
+    # Renormalize: it's a clean 2-way market, so the two sides sum to exactly 1.
+    # The only reason they don't is the score-grid truncation (negligible noise).
+    total = p_home + p_away
+    if total > 0:
+        p_home, p_away = p_home / total, p_away / total
+    return p_home, p_away
 
 
 def assess_confidence(
@@ -60,7 +105,10 @@ def assess_confidence(
     else:
         base = Confidence.LOW
 
-    downgrade = period == Period.FIRST_HALF or isinstance(selection, CorrectScoreSelection)
+    downgrade = (
+        period == Period.FIRST_HALF
+        or isinstance(selection, (CorrectScoreSelection, AdvanceSelection))
+    )
     if downgrade:
         base = {Confidence.HIGH: Confidence.MEDIUM, Confidence.MEDIUM: Confidence.LOW}.get(
             base, Confidence.LOW
@@ -94,6 +142,8 @@ def price_selection(
     news_known: bool,
     num_books: int,
     first_half_fraction: float = DEFAULT_FIRST_HALF_FRACTION,
+    extra_time_fraction: float = DEFAULT_EXTRA_TIME_FRACTION,
+    penalty_split_home: float = DEFAULT_PENALTY_SPLIT_HOME,
     max_goals: int = DEFAULT_MAX_GOALS,
 ) -> FairValue:
     """Price one selection, returning a fully self-describing FairValue.
@@ -121,6 +171,29 @@ def price_selection(
                 "last fair price before a player is ruled out, so injury-driven "
                 "gaps are not real edges — see screening stage"
             ),
+        )
+
+    # -- knockout "to advance" (composes 90' + extra time + penalties) ----- #
+    if isinstance(selection, AdvanceSelection):
+        p_home, p_away = advance_probabilities(
+            lambdas,
+            extra_time_fraction=extra_time_fraction,
+            penalty_split_home=penalty_split_home,
+            max_goals=max_goals,
+        )
+        prob = p_home if selection.team == "home" else p_away
+        return FairValue(
+            selection=selection,
+            priced=True,
+            excluded=False,
+            probability=prob,
+            fair_price_cents=round(prob * 100),
+            lambdas_used=lambdas,
+            confidence=assess_confidence(
+                news_known=news_known, num_books=num_books,
+                period=selection.period, selection=selection,
+            ),
+            note=f"advance = win90 + draw90×(ET+pens); {lambdas.note}".strip(),
         )
 
     # -- scale to the requested period ------------------------------------- #
@@ -157,6 +230,8 @@ def price_match(
     news_known: bool,
     num_books: int,
     first_half_fraction: float = DEFAULT_FIRST_HALF_FRACTION,
+    extra_time_fraction: float = DEFAULT_EXTRA_TIME_FRACTION,
+    penalty_split_home: float = DEFAULT_PENALTY_SPLIT_HOME,
     max_goals: int = DEFAULT_MAX_GOALS,
 ) -> list[FairValue]:
     """Price every selection for one match. Logs the strategy/lambdas once."""
@@ -174,6 +249,8 @@ def price_match(
             news_known=news_known,
             num_books=num_books,
             first_half_fraction=first_half_fraction,
+            extra_time_fraction=extra_time_fraction,
+            penalty_split_home=penalty_split_home,
             max_goals=max_goals,
         )
         for sel in selections
