@@ -1,0 +1,851 @@
+[
+ {
+  "id": "640346",
+  "title": "Germany vs. Paraguay",
+  "slug": "fifwc-ger-par-2026-06-29",
+  "gameId": 90086980,
+  "seriesSlug": "soccer-fifwc",
+  "sport": {
+   "id": 174,
+   "sport": "fifwc",
+   "image": "https://polymarket-upload.s3.us-east-2.amazonaws.com/soccer ball-bba4025f77.png",
+   "resolution": "https://www.fifa.com/fifaplus/en/tournaments/mens/worldcup",
+   "ordering": "home",
+   "tags": "1, 100639, 100350, 102232",
+   "series": "11433",
+   "createdAt": "2026-04-06T19:15:16.986929Z"
+  },
+  "teams": [
+   {
+    "name": "Germany",
+    "ordering": "home"
+   },
+   {
+    "name": "Paraguay",
+    "ordering": "away"
+   }
+  ],
+  "markets": [
+   {
+    "question": "Will Germany win on 2026-06-29?",
+    "sportsMarketType": "moneyline",
+    "outcomes": "[\"Yes\", \"No\"]",
+    "outcomePrices": "[\"0.395\", \"0.605\"]",
+    "bestBid": 0.39,
+    "bestAsk": 0.4,
+    "lastTradePrice": 0.4,
+    "liquidityNum": 1123243.1158,
+    "volumeNum": 10567146.853410127
+   },
+   {
+    "question": "Will Germany vs. Paraguay end in a draw?",
+    "sportsMarketType": "moneyline",
+    "outcomes": "[\"Yes\", \"No\"]",
+    "outcomePrices": "[\"0.335\", \"0.665\"]",
+    "bestBid": 0.33,
+    "bestAsk": 0.34,
+    "lastTradePrice": 0.34,
+    "liquidityNum": 762304.0565,
+    "volumeNum": 842222.4856670017
+   },
+   {
+    "question": "Will Paraguay win on 2026-06-29?",
+    "sportsMarketType": "moneyline",
+    "outcomes": "[\"Yes\", \"No\"]",
+    "outcomePrices": "[\"0.275\", \"0.725\"]",
+    "bestBid": 0.27,
+    "bestAsk": 0.28,
+    "lastTradePrice": 0.28,
+    "liquidityNum": 585883.7231,
+    "volumeNum": 2198994.9146149703
+   }
+  ]
+ },
+ {
+  "id": "640368",
+  "title": "Germany vs. Paraguay - Exact Score",
+  "slug": "fifwc-ger-par-2026-06-29-exact-score",
+  "gameId": 90086980,
+  "seriesSlug": "soccer-fifwc",
+  "sport": {
+   "id": 174,
+   "sport": "fifwc",
+   "image": "https://polymarket-upload.s3.us-east-2.amazonaws.com/soccer ball-bba4025f77.png",
+   "resolution": "https://www.fifa.com/fifaplus/en/tournaments/mens/worldcup",
+   "ordering": "home",
+   "tags": "1, 100639, 100350, 102232",
+   "series": "11433",
+   "createdAt": "2026-04-06T19:15:16.986929Z"
+  },
+  "teams": [
+   {
+    "name": "Germany",
+    "ordering": "home"
+   },
+   {
+    "name": "Paraguay",
+    "ordering": "away"
+   }
+  ],
+  "markets": [
+   {
+    "question": "Exact Score: Germany 1 - 3 Paraguay?",
+    "sportsMarketType": "soccer_exact_score",
+    "outcomes": "[\"Yes\", \"No\"]",
+    "outcomePrices": "[\"0.009\", \"0.991\"]",
+    "bestBid": 0.008,
+    "bestAsk": 0.01,
+    "lastTradePrice": 0.01,
+    "liquidityNum": 57668.72112,
+    "volumeNum": 69564.88976300001
+   },
+   {
+    "question": "Exact Score: Germany 2 - 2 Paraguay?",
+    "sportsMarketType": "soccer_exact_score",
+    "outcomes": "[\"Yes\", \"No\"]",
+    "outcomePrices": "[\"0.0625\", \"0.9375\"]",
+    "bestBid": 0.062,
+    "bestAsk": 0.063,
+    "lastTradePrice": 0.063,
+    "liquidityNum": 63671.2341,
+    "volumeNum": 62919.42301099999
+   },
+   {
+    "question": "Exact Score: Germany 3 - 1 Paraguay?",
+    "sportsMarketType": "soccer_exact_score",
+    "outcomes": "[\"Yes\", \"No\"]",
+    "outcomePrices": "[\"0.095\", \"0.905\"]",
+    "bestBid": 0.091,
+    "bestAsk": 0.099,
+    "lastTradePrice": 0.1,
+    "liquidityNum": 60295.23005,
+    "volumeNum": 526646.3038739982
+   },
+   {
+    "question": "Exact Score: Germany 2 - 3 Paraguay?",
+    "sportsMarketType": "soccer_exact_score",
+    "outcomes": "[\"Yes\", \"No\"]",
+    "outcomePrices": "[\"0.012\", \"0.988\"]",
+    "bestBid": 0.006,
+    "bestAsk": 0.018,
+    "lastTradePrice": 0.019,
+    "liquidityNum": 51005.68407,
+    "volumeNum": 72395.890713
+   },
+   {
+    "question": "Exact Score: Germany 3 - 2 Paraguay?",
+    "sportsMarketType": "soccer_exact_score",
+    "outcomes": "[\"Yes\", \"No\"]",
+    "outcomePrices": "[\"0.0315\", \"0.9685\"]",
+    "bestBid": 0.029,
+    "bestAsk": 0.034,
+    "lastTradePrice": 0.034,
+    "liquidityNum": 42981.76114,
+    "volumeNum": 72548.09456499996
+   },
+   {
+    "question": "Exact Score: Germany 3 - 3 Paraguay?",
+    "sportsMarketType": "soccer_exact_score",
+    "outcomes": "[\"Yes\", \"No\"]",
+    "outcomePrices": "[\"0.0065\", \"0.9935\"]",
+    "bestBid": 0.004,
+    "bestAsk": 0.009,
+    "lastTradePrice": 0.01,
+    "liquidityNum": 65142.70747,
+    "volumeNum": 70724.73699800002
+   },
+   {
+    "question": "Exact Score: Any Other Score?",
+    "sportsMarketType": "soccer_exact_score",
+    "outcomes": "[\"Yes\", \"No\"]",
+    "outcomePrices": "[\"0.065\", \"0.935\"]",
+    "bestBid": 0.05,
+    "bestAsk": 0.08,
+    "lastTradePrice": 0.07,
+    "liquidityNum": 37851.8226,
+    "volumeNum": 75379.71284800008
+   },
+   {
+    "question": "Exact Score: Germany 0 - 0 Paraguay?",
+    "sportsMarketType": "soccer_exact_score",
+    "outcomes": "[\"Yes\", \"No\"]",
+    "outcomePrices": "[\"0.0005\", \"0.9995\"]",
+    "bestAsk": 0.001,
+    "lastTradePrice": 0.01,
+    "liquidityNum": 212748.48764,
+    "volumeNum": 148671.29534099976
+   },
+   {
+    "question": "Exact Score: Germany 0 - 1 Paraguay?",
+    "sportsMarketType": "soccer_exact_score",
+    "outcomes": "[\"Yes\", \"No\"]",
+    "outcomePrices": "[\"0.1455\", \"0.8545\"]",
+    "bestBid": 0.143,
+    "bestAsk": 0.148,
+    "lastTradePrice": 0.143,
+    "liquidityNum": 118573.93959,
+    "volumeNum": 152763.53572100008
+   },
+   {
+    "question": "Exact Score: Germany 1 - 0 Paraguay?",
+    "sportsMarketType": "soccer_exact_score",
+    "outcomes": "[\"Yes\", \"No\"]",
+    "outcomePrices": "[\"0.0005\", \"0.9995\"]",
+    "bestAsk": 0.001,
+    "lastTradePrice": 0.01,
+    "liquidityNum": 330155.25219,
+    "volumeNum": 266055.92766099994
+   },
+   {
+    "question": "Exact Score: Germany 0 - 2 Paraguay?",
+    "sportsMarketType": "soccer_exact_score",
+    "outcomes": "[\"Yes\", \"No\"]",
+    "outcomePrices": "[\"0.04\", \"0.96\"]",
+    "bestBid": 0.038,
+    "bestAsk": 0.042,
+    "lastTradePrice": 0.042,
+    "liquidityNum": 56286.39992,
+    "volumeNum": 116644.15088399997
+   },
+   {
+    "question": "Exact Score: Germany 1 - 1 Paraguay?",
+    "sportsMarketType": "soccer_exact_score",
+    "outcomes": "[\"Yes\", \"No\"]",
+    "outcomePrices": "[\"0.275\", \"0.725\"]",
+    "bestBid": 0.27,
+    "bestAsk": 0.28,
+    "lastTradePrice": 0.28,
+    "liquidityNum": 76035.676,
+    "volumeNum": 105122.37579500012
+   },
+   {
+    "question": "Exact Score: Germany 2 - 0 Paraguay?",
+    "sportsMarketType": "soccer_exact_score",
+    "outcomes": "[\"Yes\", \"No\"]",
+    "outcomePrices": "[\"0.0005\", \"0.9995\"]",
+    "bestAsk": 0.001,
+    "lastTradePrice": 0.01,
+    "liquidityNum": 344735.41464,
+    "volumeNum": 701831.2596259832
+   },
+   {
+    "question": "Exact Score: Germany 0 - 3 Paraguay?",
+    "sportsMarketType": "soccer_exact_score",
+    "outcomes": "[\"Yes\", \"No\"]",
+    "outcomePrices": "[\"0.01\", \"0.99\"]",
+    "bestBid": 0.005,
+    "bestAsk": 0.015,
+    "lastTradePrice": 0.015,
+    "liquidityNum": 59013.5692,
+    "volumeNum": 63537.46134499999
+   },
+   {
+    "question": "Exact Score: Germany 1 - 2 Paraguay?",
+    "sportsMarketType": "soccer_exact_score",
+    "outcomes": "[\"Yes\", \"No\"]",
+    "outcomePrices": "[\"0.0645\", \"0.9355\"]",
+    "bestBid": 0.063,
+    "bestAsk": 0.066,
+    "lastTradePrice": 0.066,
+    "liquidityNum": 82963.15978,
+    "volumeNum": 89497.47670599994
+   },
+   {
+    "question": "Exact Score: Germany 2 - 1 Paraguay?",
+    "sportsMarketType": "soccer_exact_score",
+    "outcomes": "[\"Yes\", \"No\"]",
+    "outcomePrices": "[\"0.225\", \"0.775\"]",
+    "bestBid": 0.22,
+    "bestAsk": 0.23,
+    "lastTradePrice": 0.23,
+    "liquidityNum": 67484.1715,
+    "volumeNum": 305737.4920080009
+   },
+   {
+    "question": "Exact Score: Germany 3 - 0 Paraguay?",
+    "sportsMarketType": "soccer_exact_score",
+    "outcomes": "[\"Yes\", \"No\"]",
+    "outcomePrices": "[\"0.0005\", \"0.9995\"]",
+    "bestAsk": 0.001,
+    "lastTradePrice": 0.001,
+    "liquidityNum": 332206.14657,
+    "volumeNum": 318435.99873300036
+   }
+  ]
+ },
+ {
+  "id": "640446",
+  "title": "Germany vs. Paraguay - More Markets",
+  "slug": "fifwc-ger-par-2026-06-29-more-markets",
+  "gameId": 90086980,
+  "seriesSlug": "soccer-fifwc",
+  "sport": {
+   "id": 174,
+   "sport": "fifwc",
+   "image": "https://polymarket-upload.s3.us-east-2.amazonaws.com/soccer ball-bba4025f77.png",
+   "resolution": "https://www.fifa.com/fifaplus/en/tournaments/mens/worldcup",
+   "ordering": "home",
+   "tags": "1, 100639, 100350, 102232",
+   "series": "11433",
+   "createdAt": "2026-04-06T19:15:16.986929Z"
+  },
+  "teams": [
+   {
+    "name": "Germany",
+    "ordering": "home"
+   },
+   {
+    "name": "Paraguay",
+    "ordering": "away"
+   }
+  ],
+  "markets": [
+   {
+    "question": "Germany vs. Paraguay: Germany O/U 2.5",
+    "sportsMarketType": "soccer_team_totals",
+    "outcomes": "[\"Over\", \"Under\"]",
+    "outcomePrices": "[\"0.18\", \"0.82\"]",
+    "bestBid": 0.17,
+    "bestAsk": 0.19,
+    "lastTradePrice": 0.17,
+    "liquidityNum": 37375.6627,
+    "volumeNum": 193794.30816699963
+   },
+   {
+    "question": "Germany vs. Paraguay: Paraguay O/U 0.5",
+    "sportsMarketType": "soccer_team_totals",
+    "outcomes": "[\"Over\", \"Under\"]",
+    "outcomePrices": "[\"0.9995\", \"0.0005\"]",
+    "bestBid": 0.999,
+    "bestAsk": 1,
+    "lastTradePrice": 0.999,
+    "liquidityNum": 323742.83074,
+    "volumeNum": 144523.75790299985
+   },
+   {
+    "question": "Germany vs. Paraguay: Paraguay O/U 1.5",
+    "sportsMarketType": "soccer_team_totals",
+    "outcomes": "[\"Over\", \"Under\"]",
+    "outcomePrices": "[\"0.24\", \"0.76\"]",
+    "bestBid": 0.23,
+    "bestAsk": 0.25,
+    "lastTradePrice": 0.24,
+    "liquidityNum": 38839.2525,
+    "volumeNum": 33299.82236400001
+   },
+   {
+    "question": "Germany vs. Paraguay: Paraguay O/U 2.5",
+    "sportsMarketType": "soccer_team_totals",
+    "outcomes": "[\"Over\", \"Under\"]",
+    "outcomePrices": "[\"0.028\", \"0.972\"]",
+    "bestBid": 0.026,
+    "bestAsk": 0.03,
+    "lastTradePrice": 0.028,
+    "liquidityNum": 35005.35777,
+    "volumeNum": 78042.04261000003
+   },
+   {
+    "question": "Germany vs. Paraguay: Germany 1st Half O/U 0.5",
+    "sportsMarketType": "soccer_first_half_team_totals",
+    "outcomes": "[\"Over\", \"Under\"]",
+    "outcomePrices": "[\"0.0005\", \"0.9995\"]",
+    "bestAsk": 0.001,
+    "lastTradePrice": 0.01,
+    "liquidityNum": 181563.64111,
+    "volumeNum": 31981.85195199999
+   },
+   {
+    "question": "Germany vs. Paraguay: Germany 1st Half O/U 1.5",
+    "sportsMarketType": "soccer_first_half_team_totals",
+    "outcomes": "[\"Over\", \"Under\"]",
+    "outcomePrices": "[\"0.0005\", \"0.9995\"]",
+    "bestAsk": 0.001,
+    "lastTradePrice": 0.01,
+    "liquidityNum": 86723.99882,
+    "volumeNum": 15100.155546000002
+   },
+   {
+    "question": "Germany vs. Paraguay: Paraguay 1st Half O/U 0.5",
+    "sportsMarketType": "soccer_first_half_team_totals",
+    "outcomes": "[\"Over\", \"Under\"]",
+    "outcomePrices": "[\"0.9995\", \"0.0005\"]",
+    "bestBid": 0.999,
+    "bestAsk": 1,
+    "lastTradePrice": 0.999,
+    "liquidityNum": 146881.50108,
+    "volumeNum": 14654.164907999997
+   },
+   {
+    "question": "Germany vs. Paraguay: Paraguay 1st Half O/U 1.5",
+    "sportsMarketType": "soccer_first_half_team_totals",
+    "outcomes": "[\"Over\", \"Under\"]",
+    "outcomePrices": "[\"0.0005\", \"0.9995\"]",
+    "bestAsk": 0.001,
+    "lastTradePrice": 0.065,
+    "liquidityNum": 79428.67558,
+    "volumeNum": 14498.736084999995
+   },
+   {
+    "question": "Spread: Germany (-1.5)",
+    "sportsMarketType": "spreads",
+    "outcomes": "[\"Germany\", \"Paraguay\"]",
+    "outcomePrices": "[\"0.135\", \"0.865\"]",
+    "bestBid": 0.13,
+    "bestAsk": 0.14,
+    "lastTradePrice": 0.14,
+    "liquidityNum": 181071.1307,
+    "volumeNum": 5116230.068361044
+   },
+   {
+    "question": "Germany vs. Paraguay: O/U 7.5",
+    "sportsMarketType": "totals",
+    "outcomes": "[\"Over\", \"Under\"]",
+    "outcomePrices": "[\"0.005\", \"0.995\"]",
+    "bestBid": 0.001,
+    "bestAsk": 0.009,
+    "lastTradePrice": 0.001,
+    "liquidityNum": 87792.38232,
+    "volumeNum": 28991.121029000016
+   },
+   {
+    "question": "Germany vs. Paraguay: O/U 8.5",
+    "sportsMarketType": "totals",
+    "outcomes": "[\"Over\", \"Under\"]",
+    "outcomePrices": "[\"0.005\", \"0.995\"]",
+    "bestBid": 0.001,
+    "bestAsk": 0.009,
+    "lastTradePrice": 0.009,
+    "liquidityNum": 89854.3036,
+    "volumeNum": 17184.888707000006
+   },
+   {
+    "question": "Germany vs. Paraguay: Both Teams to Score",
+    "sportsMarketType": "both_teams_to_score",
+    "outcomes": "[\"Yes\", \"No\"]",
+    "outcomePrices": "[\"0.805\", \"0.195\"]",
+    "bestBid": 0.8,
+    "bestAsk": 0.81,
+    "lastTradePrice": 0.81,
+    "liquidityNum": 73604.9667,
+    "volumeNum": 302281.04834600014
+   },
+   {
+    "question": "Germany vs. Paraguay: Germany O/U 1.5",
+    "sportsMarketType": "soccer_team_totals",
+    "outcomes": "[\"Over\", \"Under\"]",
+    "outcomePrices": "[\"0.47\", \"0.53\"]",
+    "bestBid": 0.46,
+    "bestAsk": 0.48,
+    "lastTradePrice": 0.48,
+    "liquidityNum": 49595.3741,
+    "volumeNum": 297337.25961600034
+   },
+   {
+    "question": "Spread: Paraguay (-1.5)",
+    "sportsMarketType": "spreads",
+    "outcomes": "[\"Paraguay\", \"Germany\"]",
+    "outcomePrices": "[\"0.0565\", \"0.9435\"]",
+    "bestBid": 0.055,
+    "bestAsk": 0.058,
+    "lastTradePrice": 0.058,
+    "liquidityNum": 118383.77451,
+    "volumeNum": 326777.213923
+   },
+   {
+    "question": "Spread: Germany (-2.5)",
+    "sportsMarketType": "spreads",
+    "outcomes": "[\"Germany\", \"Paraguay\"]",
+    "outcomePrices": "[\"0.045\", \"0.955\"]",
+    "bestBid": 0.04,
+    "bestAsk": 0.05,
+    "lastTradePrice": 0.05,
+    "liquidityNum": 78956.9336,
+    "volumeNum": 440999.88455800136
+   },
+   {
+    "question": "Spread: Paraguay (-2.5)",
+    "sportsMarketType": "spreads",
+    "outcomes": "[\"Paraguay\", \"Germany\"]",
+    "outcomePrices": "[\"0.005\", \"0.995\"]",
+    "bestBid": 0.002,
+    "bestAsk": 0.008,
+    "lastTradePrice": 0.009,
+    "liquidityNum": 81322.29878,
+    "volumeNum": 41839.76086699971
+   },
+   {
+    "question": "Spread: Germany (-3.5)",
+    "sportsMarketType": "spreads",
+    "outcomes": "[\"Germany\", \"Paraguay\"]",
+    "outcomePrices": "[\"0.01\", \"0.99\"]",
+    "bestBid": 0.001,
+    "bestAsk": 0.019,
+    "lastTradePrice": 0.019,
+    "liquidityNum": 74535.35315,
+    "volumeNum": 181560.0504399999
+   },
+   {
+    "question": "Spread: Paraguay (-3.5)",
+    "sportsMarketType": "spreads",
+    "outcomes": "[\"Paraguay\", \"Germany\"]",
+    "outcomePrices": "[\"0.004\", \"0.996\"]",
+    "bestAsk": 0.008,
+    "lastTradePrice": 0.003,
+    "liquidityNum": 56065.11696,
+    "volumeNum": 6895.6626659999965
+   },
+   {
+    "question": "Spread: Germany (-4.5)",
+    "sportsMarketType": "spreads",
+    "outcomes": "[\"Germany\", \"Paraguay\"]",
+    "outcomePrices": "[\"0.035\", \"0.965\"]",
+    "bestBid": 0.001,
+    "bestAsk": 0.069,
+    "lastTradePrice": 0.017,
+    "liquidityNum": 63284.27657,
+    "volumeNum": 10991.26288
+   },
+   {
+    "question": "Spread: Paraguay (-4.5)",
+    "sportsMarketType": "spreads",
+    "outcomes": "[\"Paraguay\", \"Germany\"]",
+    "outcomePrices": "[\"0.0765\", \"0.9235\"]",
+    "bestAsk": 0.153,
+    "lastTradePrice": 0.001,
+    "liquidityNum": 44406.33752,
+    "volumeNum": 3952.4960000000005
+   },
+   {
+    "question": "Spread: Germany (-5.5)",
+    "sportsMarketType": "spreads",
+    "outcomes": "[\"Germany\", \"Paraguay\"]",
+    "outcomePrices": "[\"0.006\", \"0.994\"]",
+    "bestBid": 0.002,
+    "bestAsk": 0.01,
+    "lastTradePrice": 0.003,
+    "liquidityNum": 65921.18531,
+    "volumeNum": 11909.457757999999
+   },
+   {
+    "question": "Spread: Paraguay (-5.5)",
+    "sportsMarketType": "spreads",
+    "outcomes": "[\"Paraguay\", \"Germany\"]",
+    "outcomePrices": "[\"0.081\", \"0.919\"]",
+    "bestAsk": 0.162,
+    "lastTradePrice": 0.001,
+    "liquidityNum": 51394.55617,
+    "volumeNum": 2488.0119999999997
+   },
+   {
+    "question": "Germany vs. Paraguay: O/U 0.5",
+    "sportsMarketType": "totals",
+    "outcomes": "[\"Over\", \"Under\"]",
+    "outcomePrices": "[\"0.9995\", \"0.0005\"]",
+    "bestBid": 0.999,
+    "bestAsk": 1,
+    "lastTradePrice": 0.999,
+    "liquidityNum": 940989.78842,
+    "volumeNum": 262832.1660679997
+   },
+   {
+    "question": "Germany vs. Paraguay: O/U 1.5",
+    "sportsMarketType": "totals",
+    "outcomes": "[\"Over\", \"Under\"]",
+    "outcomePrices": "[\"0.855\", \"0.145\"]",
+    "bestBid": 0.85,
+    "bestAsk": 0.86,
+    "lastTradePrice": 0.86,
+    "liquidityNum": 178562.7796,
+    "volumeNum": 337259.16535599955
+   },
+   {
+    "question": "Germany vs. Paraguay: O/U 2.5",
+    "sportsMarketType": "totals",
+    "outcomes": "[\"Over\", \"Under\"]",
+    "outcomePrices": "[\"0.545\", \"0.455\"]",
+    "bestBid": 0.54,
+    "bestAsk": 0.55,
+    "lastTradePrice": 0.55,
+    "liquidityNum": 259204.4809,
+    "volumeNum": 1887992.556066003
+   },
+   {
+    "question": "Germany vs. Paraguay: O/U 3.5",
+    "sportsMarketType": "totals",
+    "outcomes": "[\"Over\", \"Under\"]",
+    "outcomePrices": "[\"0.255\", \"0.745\"]",
+    "bestBid": 0.25,
+    "bestAsk": 0.26,
+    "lastTradePrice": 0.26,
+    "liquidityNum": 139547.1652,
+    "volumeNum": 655863.6275429988
+   },
+   {
+    "question": "Germany vs. Paraguay: O/U 4.5",
+    "sportsMarketType": "totals",
+    "outcomes": "[\"Over\", \"Under\"]",
+    "outcomePrices": "[\"0.095\", \"0.905\"]",
+    "bestBid": 0.09,
+    "bestAsk": 0.1,
+    "lastTradePrice": 0.1,
+    "liquidityNum": 110460.5197,
+    "volumeNum": 139081.73130599989
+   },
+   {
+    "question": "Germany vs. Paraguay: O/U 5.5",
+    "sportsMarketType": "totals",
+    "outcomes": "[\"Over\", \"Under\"]",
+    "outcomePrices": "[\"0.0305\", \"0.9695\"]",
+    "bestBid": 0.03,
+    "bestAsk": 0.031,
+    "lastTradePrice": 0.03,
+    "liquidityNum": 76029.73921,
+    "volumeNum": 223608.3170390002
+   },
+   {
+    "question": "Germany vs. Paraguay: O/U 6.5",
+    "sportsMarketType": "totals",
+    "outcomes": "[\"Over\", \"Under\"]",
+    "outcomePrices": "[\"0.009\", \"0.991\"]",
+    "bestBid": 0.004,
+    "bestAsk": 0.014,
+    "lastTradePrice": 0.02,
+    "liquidityNum": 174655.30925,
+    "volumeNum": 27401.363784000016
+   },
+   {
+    "question": "Germany vs. Paraguay: Both Teams to Score in First Half",
+    "sportsMarketType": "both_teams_to_score_first_half",
+    "outcomes": "[\"Yes\", \"No\"]",
+    "outcomePrices": "[\"0.0005\", \"0.9995\"]",
+    "bestAsk": 0.001,
+    "lastTradePrice": 0.001,
+    "liquidityNum": 142404.64989,
+    "volumeNum": 44174.68366699999
+   },
+   {
+    "question": "Germany vs. Paraguay: 1st Half O/U 0.5",
+    "sportsMarketType": "first_half_totals",
+    "outcomes": "[\"Over\", \"Under\"]",
+    "outcomePrices": "[\"0.9995\", \"0.0005\"]",
+    "bestBid": 0.999,
+    "bestAsk": 1,
+    "lastTradePrice": 0.999,
+    "liquidityNum": 308896.61178,
+    "volumeNum": 269021.0209579996
+   },
+   {
+    "question": "Germany vs. Paraguay: 1st Half O/U 1.5",
+    "sportsMarketType": "first_half_totals",
+    "outcomes": "[\"Over\", \"Under\"]",
+    "outcomePrices": "[\"0.0005\", \"0.9995\"]",
+    "bestAsk": 0.001,
+    "lastTradePrice": 0.001,
+    "liquidityNum": 564791.23449,
+    "volumeNum": 566010.939004
+   },
+   {
+    "question": "Germany vs. Paraguay: 1st Half O/U 2.5",
+    "sportsMarketType": "first_half_totals",
+    "outcomes": "[\"Over\", \"Under\"]",
+    "outcomePrices": "[\"0.0005\", \"0.9995\"]",
+    "bestAsk": 0.001,
+    "lastTradePrice": 0.02,
+    "liquidityNum": 169084.33129,
+    "volumeNum": 96229.0522789998
+   },
+   {
+    "question": "Germany vs. Paraguay: Germany O/U 0.5",
+    "sportsMarketType": "soccer_team_totals",
+    "outcomes": "[\"Over\", \"Under\"]",
+    "outcomePrices": "[\"0.815\", \"0.185\"]",
+    "bestBid": 0.81,
+    "bestAsk": 0.82,
+    "lastTradePrice": 0.82,
+    "liquidityNum": 61619.0926,
+    "volumeNum": 105040.38600200007
+   },
+   {
+    "question": "Germany vs. Paraguay: Both Teams to Score in Second Half",
+    "sportsMarketType": "both_teams_to_score_second_half",
+    "outcomes": "[\"Yes\", \"No\"]",
+    "outcomePrices": "[\"0.2\", \"0.8\"]",
+    "bestBid": 0.18,
+    "bestAsk": 0.22,
+    "lastTradePrice": 0.22,
+    "liquidityNum": 18655.5044,
+    "volumeNum": 10539.651451999998
+   },
+   {
+    "question": "Germany vs. Paraguay: 2nd Half O/U 0.5",
+    "sportsMarketType": "second_half_totals",
+    "outcomes": "[\"Over\", \"Under\"]",
+    "outcomePrices": "[\"0.835\", \"0.165\"]",
+    "bestBid": 0.82,
+    "bestAsk": 0.85,
+    "lastTradePrice": 0.85,
+    "liquidityNum": 15951.3199,
+    "volumeNum": 478.35571500000003
+   },
+   {
+    "question": "Germany vs. Paraguay: 2nd Half O/U 1.5",
+    "sportsMarketType": "second_half_totals",
+    "outcomes": "[\"Over\", \"Under\"]",
+    "outcomePrices": "[\"0.55\", \"0.45\"]",
+    "bestBid": 0.53,
+    "bestAsk": 0.57,
+    "lastTradePrice": 0.57,
+    "liquidityNum": 75845.5247,
+    "volumeNum": 8766.972115
+   },
+   {
+    "question": "Germany vs. Paraguay: 2nd Half O/U 2.5",
+    "sportsMarketType": "second_half_totals",
+    "outcomes": "[\"Over\", \"Under\"]",
+    "outcomePrices": "[\"0.26\", \"0.74\"]",
+    "bestBid": 0.25,
+    "bestAsk": 0.27,
+    "lastTradePrice": 0.27,
+    "liquidityNum": 26238.5004,
+    "volumeNum": 3874.6683340000004
+   },
+   {
+    "question": "Germany vs. Paraguay: Germany 2nd Half O/U 0.5",
+    "sportsMarketType": "soccer_second_half_team_totals",
+    "outcomes": "[\"Over\", \"Under\"]",
+    "outcomePrices": "[\"0.785\", \"0.215\"]",
+    "bestBid": 0.73,
+    "bestAsk": 0.84,
+    "lastTradePrice": 0.72,
+    "liquidityNum": 26609.2517,
+    "volumeNum": 264.92591799999997
+   },
+   {
+    "question": "Germany vs. Paraguay: Germany 2nd Half O/U 1.5",
+    "sportsMarketType": "soccer_second_half_team_totals",
+    "outcomes": "[\"Over\", \"Under\"]",
+    "outcomePrices": "[\"0.425\", \"0.575\"]",
+    "bestBid": 0.36,
+    "bestAsk": 0.49,
+    "lastTradePrice": 0.49,
+    "liquidityNum": 44277.3964,
+    "volumeNum": 11930.443521000001
+   },
+   {
+    "question": "Germany vs. Paraguay: Paraguay 2nd Half O/U 0.5",
+    "sportsMarketType": "soccer_second_half_team_totals",
+    "outcomes": "[\"Over\", \"Under\"]",
+    "outcomePrices": "[\"0.235\", \"0.765\"]",
+    "bestBid": 0.18,
+    "bestAsk": 0.29,
+    "lastTradePrice": 0.46,
+    "liquidityNum": 43482.5858,
+    "volumeNum": 9365.178118000002
+   },
+   {
+    "question": "Germany vs. Paraguay: Paraguay 2nd Half O/U 1.5",
+    "sportsMarketType": "soccer_second_half_team_totals",
+    "outcomes": "[\"Over\", \"Under\"]",
+    "outcomePrices": "[\"0.15\", \"0.85\"]",
+    "bestBid": 0.02,
+    "bestAsk": 0.28,
+    "lastTradePrice": 0.1,
+    "liquidityNum": 1808.9445,
+    "volumeNum": 614.6941660000001
+   },
+   {
+    "question": "Germany vs. Paraguay: Team to Advance",
+    "sportsMarketType": "soccer_team_to_advance",
+    "outcomes": "[\"Germany\", \"Paraguay\"]",
+    "outcomePrices": "[\"0.645\", \"0.355\"]",
+    "bestBid": 0.64,
+    "bestAsk": 0.65,
+    "lastTradePrice": 0.65,
+    "liquidityNum": 684541.0927,
+    "volumeNum": 3143737.7620569975
+   },
+   {
+    "question": "Germany vs. Paraguay: Will the Match Go to a Penalty Shootout?",
+    "sportsMarketType": "soccer_penalty_shootout",
+    "outcomes": "[\"Yes\", \"No\"]",
+    "outcomePrices": "[\"0.44\", \"0.56\"]",
+    "bestBid": 0.06,
+    "bestAsk": 0.82,
+    "lastTradePrice": 0.22,
+    "liquidityNum": 3227.77,
+    "volumeNum": 379.70181399999996
+   },
+   {
+    "question": "Germany vs. Paraguay: Will the Match Go to Extra Time?",
+    "sportsMarketType": "soccer_extra_time",
+    "outcomes": "[\"Yes\", \"No\"]",
+    "outcomePrices": "[\"0.575\", \"0.425\"]",
+    "bestBid": 0.26,
+    "bestAsk": 0.89,
+    "lastTradePrice": 0.26,
+    "liquidityNum": 5066.2932,
+    "volumeNum": 1054.7553390000003
+   }
+  ]
+ },
+ {
+  "id": "640366",
+  "title": "Germany vs. Paraguay - Halftime Result",
+  "slug": "fifwc-ger-par-2026-06-29-halftime-result",
+  "gameId": 90086980,
+  "seriesSlug": "soccer-fifwc",
+  "sport": {
+   "id": 174,
+   "sport": "fifwc",
+   "image": "https://polymarket-upload.s3.us-east-2.amazonaws.com/soccer ball-bba4025f77.png",
+   "resolution": "https://www.fifa.com/fifaplus/en/tournaments/mens/worldcup",
+   "ordering": "home",
+   "tags": "1, 100639, 100350, 102232",
+   "series": "11433",
+   "createdAt": "2026-04-06T19:15:16.986929Z"
+  },
+  "teams": [
+   {
+    "name": "Germany",
+    "ordering": "home"
+   },
+   {
+    "name": "Paraguay",
+    "ordering": "away"
+   }
+  ],
+  "markets": [
+   {
+    "question": "Germany leading at halftime?",
+    "sportsMarketType": "soccer_halftime_result",
+    "outcomes": "[\"Yes\", \"No\"]",
+    "outcomePrices": "[\"0.0005\", \"0.9995\"]",
+    "bestAsk": 0.001,
+    "lastTradePrice": 0.001,
+    "liquidityNum": 411871.32081,
+    "volumeNum": 540644.4664260008
+   },
+   {
+    "question": "Germany vs. Paraguay: Draw at halftime?",
+    "sportsMarketType": "soccer_halftime_result",
+    "outcomes": "[\"Yes\", \"No\"]",
+    "outcomePrices": "[\"0.0005\", \"0.9995\"]",
+    "bestAsk": 0.001,
+    "lastTradePrice": 0.01,
+    "liquidityNum": 543897.48764,
+    "volumeNum": 291290.51103299984
+   },
+   {
+    "question": "Paraguay leading at halftime?",
+    "sportsMarketType": "soccer_halftime_result",
+    "outcomes": "[\"Yes\", \"No\"]",
+    "outcomePrices": "[\"0.9995\", \"0.0005\"]",
+    "bestBid": 0.999,
+    "bestAsk": 1,
+    "lastTradePrice": 0.999,
+    "liquidityNum": 508505.04698,
+    "volumeNum": 275303.8247319998
+   }
+  ]
+ }
+]
