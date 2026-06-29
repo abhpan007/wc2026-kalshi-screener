@@ -129,6 +129,15 @@ class PolymarketClient:
         return out
 
 
+def build_polymarket_client() -> PolymarketClient:
+    """Read-only client against the public Gamma API (no key, browser UA)."""
+    import requests
+
+    return PolymarketClient(
+        HttpClient(GAMMA_BASE_URL, session=requests.Session(), default_headers=DEFAULT_HEADERS)
+    )
+
+
 # --------------------------------------------------------------------------- #
 # Mapping: Polymarket market -> our Selection(s)
 # --------------------------------------------------------------------------- #
@@ -153,7 +162,7 @@ def map_market(m: PolymarketMarket, *, home: str, away: str) -> list[Selection]:
 
     def fit(sel: Selection, idx: int) -> Selection:
         sel.market_id = q or t
-        sel.kalshi_price_cents = m.price_cents(idx)  # venue price (field name is legacy)
+        sel.market_price_cents = m.price_cents(idx)  # venue price (field name is legacy)
         return sel
 
     # --- totals (full + first half) --------------------------------------- #

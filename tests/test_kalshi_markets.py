@@ -54,7 +54,7 @@ def test_match_key_and_date():
 def test_map_over_under():
     sel = map_series_market("over_under", Period.FULL, _m("Over 2.5 goals scored", yes_bid=60, yes_ask=64), home=HOME, away=AWAY)
     assert isinstance(sel, OverUnderSelection)
-    assert sel.line == 2.5 and sel.side == "over" and sel.kalshi_price_cents == 62
+    assert sel.line == 2.5 and sel.side == "over" and sel.market_price_cents == 62
 
 
 def test_map_first_half_total_sets_period():

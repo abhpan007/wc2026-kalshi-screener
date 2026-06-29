@@ -139,7 +139,7 @@ def map_series_market(
 
     def attach(sel: Selection) -> Selection:
         sel.market_id = market.ticker
-        sel.kalshi_price_cents = price
+        sel.market_price_cents = price
         sel.period = period
         return sel
 

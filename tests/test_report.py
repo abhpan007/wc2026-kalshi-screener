@@ -39,7 +39,7 @@ def _lam() -> MatchLambdas:
 
 def _edge_fv() -> FairValue:
     sel = OverUnderSelection(line=2.5, side="over")
-    sel.kalshi_price_cents = 62
+    sel.market_price_cents = 62
     return FairValue(
         selection=sel, priced=True, probability=0.52, fair_price_cents=52,
         lambdas_used=_lam(), confidence=Confidence.HIGH,
@@ -62,7 +62,7 @@ def test_markdown_has_edge_and_disclaimer():
         match=_match(),
         reference=ReferenceLines(moneyline=MoneylineProbs(home=0.5, draw=0.27, away=0.23), total_line=2.5, over_prob=0.52, num_books=3),
         home_news_known=True, away_news_known=True, lambdas=_lam(), screen=screen,
-        kalshi_1x2={"home": 52, "draw": 26, "away": 22},
+        market_1x2={"home": 52, "draw": 26, "away": 22},
     )
     md = render_markdown(_report([mr]))
     assert "United States vs Mexico" in md
@@ -75,7 +75,7 @@ def test_markdown_has_edge_and_disclaimer():
 
 def test_markdown_thin_board_message():
     sel = OverUnderSelection(line=2.5, side="over")
-    sel.kalshi_price_cents = 51
+    sel.market_price_cents = 51
     fv = FairValue(selection=sel, priced=True, probability=0.52, fair_price_cents=52, lambdas_used=_lam(), confidence=Confidence.HIGH)
     mr = MatchReport(match=_match(), lambdas=_lam(), screen=screen_match([fv], threshold_cents=3))
     md = render_markdown(_report([mr]))
@@ -91,7 +91,7 @@ def test_suppressed_prop_is_surfaced():
     from screener.models import TeamNews
 
     prop = PlayerPropSelection(player="Christian Pulisic", description="anytime")
-    prop.kalshi_price_cents = 40
+    prop.market_price_cents = 40
     fv = FairValue(selection=prop, priced=False, excluded=True)
     screen = screen_match([fv], home_news=TeamNews(known=True, players_out=["Christian Pulisic"]))
     mr = MatchReport(match=_match(), lambdas=_lam(), screen=screen)
@@ -113,7 +113,7 @@ def test_liquidity_line_reports_priced_count():
 
 def test_fair_value_sheet_shown_without_kalshi_prices():
     # Model priced markets with NO Kalshi price (the current real-world case).
-    over = OverUnderSelection(line=2.5, side="over")  # kalshi_price_cents stays None
+    over = OverUnderSelection(line=2.5, side="over")  # market_price_cents stays None
     fv = FairValue(
         selection=over, priced=True, probability=0.52, fair_price_cents=52,
         lambdas_used=_lam(), confidence=Confidence.HIGH,
@@ -128,7 +128,7 @@ def test_fair_value_sheet_shown_without_kalshi_prices():
 
 def test_html_renders_table_and_disclaimer():
     screen = screen_match([_edge_fv()], threshold_cents=3)
-    mr = MatchReport(match=_match(), lambdas=_lam(), screen=screen, kalshi_1x2={"home": 52})
+    mr = MatchReport(match=_match(), lambdas=_lam(), screen=screen, market_1x2={"home": 52})
     html = render_html(_report([mr]))
     assert "<table" in html
     assert "United States vs Mexico" in html
@@ -138,8 +138,8 @@ def test_html_renders_table_and_disclaimer():
 def test_correlation_note_rendered():
     from screener.models import TeamTotalSelection
 
-    over = OverUnderSelection(line=2.5, side="over"); over.market_id = "OV"; over.kalshi_price_cents = 62
-    ttu = TeamTotalSelection(team="home", line=1.5, side="under"); ttu.market_id = "TT"; ttu.kalshi_price_cents = 50
+    over = OverUnderSelection(line=2.5, side="over"); over.market_id = "OV"; over.market_price_cents = 62
+    ttu = TeamTotalSelection(team="home", line=1.5, side="under"); ttu.market_id = "TT"; ttu.market_price_cents = 50
     fvs = [
         FairValue(selection=over, priced=True, probability=0.52, fair_price_cents=52, lambdas_used=_lam(), confidence=Confidence.HIGH),
         FairValue(selection=ttu, priced=True, probability=0.58, fair_price_cents=58, lambdas_used=_lam(), confidence=Confidence.HIGH),

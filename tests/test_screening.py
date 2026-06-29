@@ -26,7 +26,7 @@ LAM = MatchLambdas(lambda_home=1.5, lambda_away=1.2, strategy=XgStrategy.BOOK_AN
 
 
 def _fv(sel, *, fair_cents, kalshi_cents, confidence=Confidence.HIGH, priced=True, excluded=False):
-    sel.kalshi_price_cents = kalshi_cents
+    sel.market_price_cents = kalshi_cents
     return FairValue(
         selection=sel,
         priced=priced,
@@ -144,7 +144,7 @@ def test_over_overpriced_backs_under_low_scoring():
 # --------------------------------------------------------------------------- #
 def _prop(player: str, kalshi=40) -> FairValue:
     sel = PlayerPropSelection(player=player, description="anytime scorer")
-    sel.kalshi_price_cents = kalshi
+    sel.market_price_cents = kalshi
     return FairValue(selection=sel, priced=False, excluded=True, note="prop")
 
 
@@ -187,7 +187,7 @@ def test_different_surname_not_falsely_matched():
 # --------------------------------------------------------------------------- #
 def test_corners_excluded():
     sel = CornersSelection(description="over 9.5")
-    sel.kalshi_price_cents = 58
+    sel.market_price_cents = 58
     fv = FairValue(selection=sel, priced=False, excluded=True, note="corners no model")
     screen = screen_match([fv])
     assert screen.other[0].status == ScreenStatus.EXCLUDED

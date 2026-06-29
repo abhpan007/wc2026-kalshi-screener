@@ -179,13 +179,13 @@ class MatchLambdas(BaseModel):
 class _BaseSelection(BaseModel):
     """A binary Kalshi market, normalized to what the model needs to price it.
 
-    ``market_id`` and ``kalshi_price_cents`` are optional here because the
+    ``market_id`` and ``market_price_cents`` are optional here because the
     pricing engine only needs the market *shape*; screening attaches prices.
     """
 
     market_id: Optional[str] = None
     period: Period = Period.FULL
-    kalshi_price_cents: Optional[int] = Field(default=None, ge=0, le=100)
+    market_price_cents: Optional[int] = Field(default=None, ge=0, le=100)
 
 
 class MatchResultSelection(_BaseSelection):

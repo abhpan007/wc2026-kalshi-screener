@@ -32,7 +32,7 @@ def test_full_pipeline_produces_report_with_edge():
     assert mr.match.match_id == "26JUN21JORARG"
     assert mr.reference.moneyline is not None       # odds matched
     assert mr.lambdas is not None                    # priced
-    assert mr.kalshi_1x2["home"] == 30               # KXWCGAME Jordan last_price
+    assert mr.market_1x2["home"] == 30               # KXWCGAME Jordan last_price
     # The rich Over 2.5 (kalshi mid 62 vs fair ~52) should flag, on the NO side.
     assert report.total_flagged >= 1
     ou = next(

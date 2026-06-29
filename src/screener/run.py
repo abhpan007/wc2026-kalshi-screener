@@ -217,17 +217,20 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.demo:
         report = build_daily_report(
-            target,
-            settings,
-            kalshi=_DemoKalshi(target),
-            odds=_DemoOdds(),
-            news=_DemoNews(),
+            target, settings, venue="Demo",
+            kalshi=_DemoKalshi(target), odds=_DemoOdds(), news=_DemoNews(),
         )
         _emit(report, settings)
         return 0
 
-    kalshi, odds, news = _build_clients(settings, target.isoformat())
-    report = build_daily_report(target, settings, kalshi=kalshi, odds=odds, news=news)
+    # Live: discover from Polymarket (read-only public Gamma); fair value from odds.
+    from .clients.polymarket import build_polymarket_client, discover_matches as poly_discover
+
+    _kalshi, odds, news = _build_clients(settings, target.isoformat())
+    discovered = poly_discover(build_polymarket_client())
+    report = build_daily_report(
+        target, settings, odds=odds, news=news, discovered=discovered, venue="Polymarket",
+    )
     _emit(report, settings)
     return 0
 

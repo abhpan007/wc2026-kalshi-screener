@@ -34,6 +34,7 @@ from .models import (
     UTC,
     Match,
     MatchResultSelection,
+    Period,
     ReferenceLines,
     Team,
     TeamNews,
@@ -95,11 +96,12 @@ def _index_reference_by_team(
     return ref_by_team, kickoff_by_team
 
 
-def _kalshi_1x2_prices(selections) -> dict[str, Optional[int]]:
+def _market_1x2_prices(selections) -> dict[str, Optional[int]]:
+    # Full-time result only — exclude halftime/1H result markets from the summary.
     out: dict[str, Optional[int]] = {}
     for s in selections:
-        if isinstance(s, MatchResultSelection):
-            out[s.outcome] = s.kalshi_price_cents
+        if isinstance(s, MatchResultSelection) and s.period == Period.FULL:
+            out[s.outcome] = s.market_price_cents
     return out
 
 
@@ -187,7 +189,7 @@ def _process_discovered(
         away_news_known=away_news.known,
         lambdas=lambdas,
         screen=screen,
-        kalshi_1x2=_kalshi_1x2_prices(dm.selections),
+        market_1x2=_market_1x2_prices(dm.selections),
         unmapped_count=len(dm.unmapped),
         note=note,
     )
@@ -197,8 +199,10 @@ def build_daily_report(
     target_date: date,
     settings: Settings,
     *,
-    kalshi: MarketDataClient,
     odds: OddsDataClient,
+    venue: str = "Polymarket",
+    discovered: Optional[list[DiscoveredMatch]] = None,
+    kalshi: Optional[MarketDataClient] = None,
     news: Optional[NewsClient] = None,
     odds_sport: str = "soccer_fifa_world_cup",
     kalshi_series: Optional[list[str]] = None,
@@ -206,21 +210,24 @@ def build_daily_report(
 ) -> DailyReport:
     """Run the full pipeline for one match-day and return a DailyReport.
 
-    Matches are filtered to ``target_date`` by their America/Chicago day (odds
-    kickoff if matched, else the Kalshi ticker date). Matches with no date signal
-    at all are included (we can't rule them out) and flagged in their section.
+    Discovery is venue-agnostic: pass already-``discovered`` matches (e.g. from
+    the Polymarket client) and a ``venue`` label, OR pass a ``kalshi`` client to
+    discover from Kalshi. Reference/fair value always comes from the odds source.
+    Matches are filtered to ``target_date`` by their America/Chicago day.
     """
     news_client = news or StubNewsClient()
-    log.info("pipeline.start", date=target_date.isoformat(), strategy=settings.xg_strategy.value)
+    log.info("pipeline.start", date=target_date.isoformat(), venue=venue,
+             strategy=settings.xg_strategy.value)
 
     # Odds first so each discovered match can look up its reference + kickoff.
     ref_by_team, kickoff_by_team = _index_reference_by_team(odds, odds_sport)
 
-    try:
-        discovered = discover_matches(kalshi, series=kalshi_series, statuses=kalshi_statuses)
-    except Exception as exc:
-        log.error("pipeline.kalshi_unavailable", error=str(exc))
-        discovered = []
+    if discovered is None:
+        try:
+            discovered = discover_matches(kalshi, series=kalshi_series, statuses=kalshi_statuses)
+        except Exception as exc:
+            log.error("pipeline.discovery_failed", error=str(exc))
+            discovered = []
 
     reports: list[MatchReport] = []
     for dm in discovered:
@@ -252,4 +259,5 @@ def build_daily_report(
         threshold_cents=settings.threshold_cents,
         generated_at=datetime.now(tz=CENTRAL),
         matches=reports,
+        venue=venue,
     )

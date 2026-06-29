@@ -95,7 +95,7 @@ def test_map_advance_two_outcomes():
                         bestBid=0.64, bestAsk=0.65), home=HOME, away=AWAY)
     assert {x.team for x in s} == {"home", "away"}
     home_adv = next(x for x in s if x.team == "home")
-    assert isinstance(home_adv, AdvanceSelection) and home_adv.kalshi_price_cents in (64, 65)
+    assert isinstance(home_adv, AdvanceSelection) and home_adv.market_price_cents in (64, 65)
 
 
 def test_map_skips_unmodeled_types():
@@ -121,8 +121,8 @@ def test_discover_real_match():
     # to-advance produced both sides, with sane prices that sum to ~100
     adv = sorted((s for s in dm.selections if isinstance(s, AdvanceSelection)), key=lambda s: s.team)
     assert len(adv) == 2
-    assert 95 <= sum(s.kalshi_price_cents for s in adv) <= 105
+    assert 95 <= sum(s.market_price_cents for s in adv) <= 105
     # spreads / 2nd-half / props were skipped -> show up as unmapped, not priced
     assert len(dm.unmapped) > 0
     # every priced selection carries a price
-    assert all(s.kalshi_price_cents is not None for s in dm.selections)
+    assert all(s.market_price_cents is not None for s in dm.selections)

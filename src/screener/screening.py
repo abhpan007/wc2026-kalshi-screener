@@ -1,7 +1,7 @@
 """Divergence screening, ranking, correlation grouping, and prop suppression.
 
 This is the integration stage: it takes the pricing engine's :class:`FairValue`
-list for one match (each carrying the Kalshi price on its selection) plus team
+list for one match (each carrying the Market price on its selection) plus team
 news, and produces a ranked set of flagged edges with transparent rationale.
 
 Pure functions only — no I/O. The report stage renders what this returns.
@@ -14,7 +14,7 @@ Four jobs:
      report; see RANK_WEIGHTS / ranking_formula).
   3. CORRELATE: group flagged edges that are the same directional bet (e.g.
      several low-scoring markets) so they're treated as one position, not many.
-  4. SUPPRESS PROPS: Kalshi settles player props at the last fair price before a
+  4. SUPPRESS PROPS: Market settles player props at the last fair price before a
      player is ruled out, NOT to No — so an injury-driven prop is not a real
      edge once the news is public. When news says a prop's player is out/doubtful
      we suppress it with an explanatory note. Game-level markets are unaffected.
@@ -67,7 +67,7 @@ class ScreenStatus(str, Enum):
     BELOW_THRESHOLD = "below_threshold"  # priced but gap too small
     EXCLUDED = "excluded"  # not priced by the goal model (e.g. corners)
     SUPPRESSED = "suppressed"  # prop whose player is out/doubtful — not a real edge
-    NO_PRICE = "no_price"  # no Kalshi price to compare against
+    NO_PRICE = "no_price"  # no Market price to compare against
 
 
 class EdgeSide(str, Enum):
@@ -82,7 +82,7 @@ class ScreenedMarket(BaseModel):
 
     fair_value: FairValue
     status: ScreenStatus
-    kalshi_price_cents: Optional[int] = None
+    market_price_cents: Optional[int] = None
     fair_price_cents: Optional[int] = None
     gap_cents: Optional[int] = None
     side: Optional[EdgeSide] = None
@@ -234,7 +234,7 @@ def _selection_label(fv: FairValue) -> str:
 
 def _rationale(label: str, kalshi: int, fair: int, gap: int, side: EdgeSide) -> str:
     return (
-        f"Kalshi {label} at {kalshi}, model fair ~{fair} "
+        f"Market {label} at {kalshi}, model fair ~{fair} "
         f"(gap {gap}); edge is to buy {side.value.upper()}."
     )
 
@@ -247,7 +247,7 @@ def _screen_one(
 ) -> ScreenedMarket:
     sel = fv.selection
 
-    # Player props: never an edge when the player is out/doubtful (Kalshi settles
+    # Player props: never an edge when the player is out/doubtful (Market settles
     # at last fair price, not to No). Game-level markets are unaffected.
     if isinstance(sel, PlayerPropSelection):
         status_word = _prop_player_status(sel.player, news)
@@ -255,10 +255,10 @@ def _screen_one(
             return ScreenedMarket(
                 fair_value=fv,
                 status=ScreenStatus.SUPPRESSED,
-                kalshi_price_cents=sel.kalshi_price_cents,
+                market_price_cents=sel.market_price_cents,
                 note=(
                     f"prop suppressed: {sel.player} is {status_word} per team news. "
-                    "Kalshi settles props at the last fair price before a player is "
+                    "Market settles props at the last fair price before a player is "
                     "ruled out (not to No), so an injury-driven gap here is NOT a real edge."
                 ),
             )
@@ -266,7 +266,7 @@ def _screen_one(
         return ScreenedMarket(
             fair_value=fv,
             status=ScreenStatus.EXCLUDED,
-            kalshi_price_cents=sel.kalshi_price_cents,
+            market_price_cents=sel.market_price_cents,
             note="player prop not priced by goal model" + ("" if news.known else "; team news unknown"),
         )
 
@@ -274,18 +274,18 @@ def _screen_one(
         return ScreenedMarket(
             fair_value=fv,
             status=ScreenStatus.EXCLUDED,
-            kalshi_price_cents=sel.kalshi_price_cents,
+            market_price_cents=sel.market_price_cents,
             note=fv.note or "not priced by goal model",
         )
 
-    kalshi = sel.kalshi_price_cents
+    kalshi = sel.market_price_cents
     if kalshi is None:
         return ScreenedMarket(
             fair_value=fv,
             status=ScreenStatus.NO_PRICE,
             fair_price_cents=fv.fair_price_cents,
             confidence=fv.confidence,
-            note="no Kalshi price to compare",
+            note="no Market price to compare",
         )
 
     fair = fv.fair_price_cents
@@ -298,7 +298,7 @@ def _screen_one(
         return ScreenedMarket(
             fair_value=fv,
             status=ScreenStatus.BELOW_THRESHOLD,
-            kalshi_price_cents=kalshi,
+            market_price_cents=kalshi,
             fair_price_cents=fair,
             gap_cents=gap,
             side=side,
@@ -310,7 +310,7 @@ def _screen_one(
     return ScreenedMarket(
         fair_value=fv,
         status=ScreenStatus.FLAGGED,
-        kalshi_price_cents=kalshi,
+        market_price_cents=kalshi,
         fair_price_cents=fair,
         gap_cents=gap,
         side=side,

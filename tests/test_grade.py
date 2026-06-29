@@ -41,7 +41,7 @@ def _match(mid="m1") -> Match:
 
 
 def _fv(sel, fair, kalshi, conf=Confidence.HIGH):
-    sel.kalshi_price_cents = kalshi
+    sel.market_price_cents = kalshi
     return FairValue(
         selection=sel, priced=True, probability=fair / 100, fair_price_cents=fair,
         lambdas_used=LAM, confidence=conf,

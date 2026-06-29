@@ -92,7 +92,7 @@ def _grade_edge(
 ) -> GradedEdge:
     sel = sm.fair_value.selection
     side = sm.side or EdgeSide.YES
-    kalshi = sm.kalshi_price_cents or 0
+    kalshi = sm.market_price_cents or 0
     fair = sm.fair_price_cents or 0
     # Entry price = price of the side we backed. Kalshi No price = 100 - Yes price.
     entry = kalshi if side == EdgeSide.YES else 100 - kalshi

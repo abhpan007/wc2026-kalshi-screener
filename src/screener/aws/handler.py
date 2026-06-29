@@ -31,10 +31,12 @@ def run_screener(
     target: date,
     settings: Settings,
     *,
-    kalshi: Any,
     odds: Any,
-    news: Any,
     store: ReportStore,
+    venue: str = "Polymarket",
+    discovered: Optional[Any] = None,
+    kalshi: Optional[Any] = None,
+    news: Optional[Any] = None,
     emailer: Optional[Any] = None,
     kalshi_series: Optional[list[str]] = None,
 ) -> DailyReport:
@@ -42,8 +44,10 @@ def run_screener(
     report = build_daily_report(
         target,
         settings,
-        kalshi=kalshi,
         odds=odds,
+        venue=venue,
+        discovered=discovered,
+        kalshi=kalshi,
         news=news,
         kalshi_series=kalshi_series,
     )
@@ -104,7 +108,11 @@ def lambda_handler(event: dict, context: object) -> dict:  # pragma: no cover - 
             target = date.fromisoformat(event["date"])
         except ValueError:
             log.warning("handler.bad_date_override", value=event.get("date"))
-    kalshi, odds, news = _build_clients(settings, target.isoformat())
+    _kalshi, odds, news = _build_clients(settings, target.isoformat())
+    # Polymarket is the venue: discover matches there (read-only public Gamma);
+    # fair value still comes from the odds source.
+    from ..clients.polymarket import build_polymarket_client, discover_matches as poly_discover
+    discovered = poly_discover(build_polymarket_client())
 
     store = S3ReportStore(os.environ["SCREENER_S3_BUCKET"], client=boto3.client("s3"))
     emailer = None
@@ -113,10 +121,9 @@ def lambda_handler(event: dict, context: object) -> dict:  # pragma: no cover - 
     if sender and recipients:
         emailer = SesEmailer(client=boto3.client("ses"), sender=sender, recipients=recipients)
 
-    series = [t for t in os.environ.get("SCREENER_KALSHI_SERIES", "").split(",") if t] or None
     report = run_screener(
-        target, settings,
-        kalshi=kalshi, odds=odds, news=news,
-        store=store, emailer=emailer, kalshi_series=series,
+        target, settings, odds=odds, news=news,
+        discovered=discovered, venue="Polymarket",
+        store=store, emailer=emailer,
     )
     return {"date": target.isoformat(), "matches": len(report.matches), "flagged": report.total_flagged}

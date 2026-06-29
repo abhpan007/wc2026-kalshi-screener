@@ -2,7 +2,7 @@
 
 The report is the product. It is structured exactly as the spec requires:
   - one section per match (kickoff in Central, canonical venue, de-vigged book
-    1X2 + total, Kalshi 1X2, a one-line team-news availability note),
+    1X2 + total, Market 1X2, a one-line team-news availability note),
   - a ranked table of flagged edges with a factual templated rationale,
   - a correlation note when several flagged edges are the same directional bet,
   - an explicit "thin board / no qualifying edges" message when nothing clears,
@@ -46,8 +46,8 @@ class MatchReport(BaseModel):
     away_news_known: bool = False
     lambdas: Optional[MatchLambdas] = None
     screen: MatchScreen = Field(default_factory=MatchScreen)
-    # Kalshi Yes prices (cents) for the 1X2 legs, when present.
-    kalshi_1x2: dict[str, Optional[int]] = Field(default_factory=dict)
+    # Market Yes prices (cents) for the 1X2 legs, when present.
+    market_1x2: dict[str, Optional[int]] = Field(default_factory=dict)
     unmapped_count: int = 0
     note: str = ""
 
@@ -58,6 +58,7 @@ class DailyReport(BaseModel):
     threshold_cents: int
     generated_at: datetime
     matches: list[MatchReport] = Field(default_factory=list)
+    venue: str = "Polymarket"  # the exchange whose prices we screened against
 
     @property
     def total_flagged(self) -> int:
@@ -65,23 +66,23 @@ class DailyReport(BaseModel):
 
     @property
     def liquidity(self) -> tuple[int, int]:
-        """(markets with a Kalshi price, total markets) across all matches — the
+        """(markets with a Market price, total markets) across all matches — the
         liquidity gauge. Edges are impossible until the first number is > 0."""
         priced = total = 0
         for m in self.matches:
             for sm in (*m.screen.flagged, *m.screen.other):
                 total += 1
-                if sm.kalshi_price_cents is not None:
+                if sm.market_price_cents is not None:
                     priced += 1
         return priced, total
 
     def liquidity_line(self) -> str:
         priced, total = self.liquidity
         if total == 0:
-            return "Kalshi liquidity: no markets discovered."
+            return f"{self.venue} liquidity: no markets discovered."
         if priced == 0:
-            return f"Kalshi liquidity: 0/{total} markets priced — no tradeable prices yet, so no edges are possible."
-        return f"Kalshi liquidity: {priced}/{total} markets priced."
+            return f"{self.venue} liquidity: 0/{total} markets priced — no tradeable prices yet, so no edges are possible."
+        return f"{self.venue} liquidity: {priced}/{total} markets priced."
 
 
 # --------------------------------------------------------------------------- #
@@ -121,7 +122,7 @@ def _book_total(ref: ReferenceLines) -> str:
 # --------------------------------------------------------------------------- #
 def render_markdown(report: DailyReport) -> str:
     L: list[str] = []
-    L.append(f"# World Cup 2026 Kalshi Edge Screener — {report.report_date.isoformat()}")
+    L.append(f"# World Cup 2026 {report.venue} Edge Screener — {report.report_date.isoformat()}")
     L.append("")
     L.append(
         f"_xG strategy: **{report.strategy.value}** · threshold: **{report.threshold_cents}¢** · "
@@ -164,9 +165,9 @@ def _markdown_match(m: MatchReport, threshold: int) -> list[str]:
     L.append("")
     L.append(f"- {_book_1x2(m.reference)}")
     L.append(f"- {_book_total(m.reference)}")
-    k = m.kalshi_1x2
+    k = m.market_1x2
     L.append(
-        f"- Kalshi 1X2: H {_cents(k.get('home'))} / D {_cents(k.get('draw'))} / "
+        f"- Market 1X2: H {_cents(k.get('home'))} / D {_cents(k.get('draw'))} / "
         f"A {_cents(k.get('away'))}"
     )
     if m.lambdas is not None:
@@ -175,7 +176,7 @@ def _markdown_match(m: MatchReport, threshold: int) -> list[str]:
         )
     L.append(f"- {_news_note(m)}")
     if m.unmapped_count:
-        L.append(f"- _{m.unmapped_count} Kalshi market(s) could not be mapped and were skipped_")
+        L.append(f"- _{m.unmapped_count} market(s) could not be mapped and were skipped_")
     L.append("")
 
     if not m.lambdas:
@@ -185,18 +186,18 @@ def _markdown_match(m: MatchReport, threshold: int) -> list[str]:
         return L
 
     # Always show the model's fair-value sheet — useful as a reference even when
-    # Kalshi has no price yet (the "Kalshi" / "Gap" columns just show —).
+    # Market has no price yet (the "Market" / "Gap" columns just show —).
     L.extend(_markdown_sheet(m))
 
     flagged = m.screen.flagged
     if flagged:
         L.append(f"### Flagged edges ({len(flagged)})")
         L.append("")
-        L.append("| Market | Side | Kalshi | Fair | Gap | Conf | Rationale |")
+        L.append("| Market | Side | Price | Fair | Gap | Conf | Rationale |")
         L.append("|---|---|---|---|---|---|---|")
         for e in flagged:
             L.append(
-                f"| {_edge_label(e)} | {e.side.value.upper()} | {_cents(e.kalshi_price_cents)} | "
+                f"| {_edge_label(e)} | {e.side.value.upper()} | {_cents(e.market_price_cents)} | "
                 f"{_cents(e.fair_price_cents)} | {e.gap_cents}¢ | "
                 f"{(e.confidence or Confidence.LOW).value} | {e.rationale} |"
             )
@@ -205,7 +206,7 @@ def _markdown_match(m: MatchReport, threshold: int) -> list[str]:
             L.append(f"> ⚠️ **Correlated ({g.direction.replace('_', ' ')}):** {g.note}")
             L.append("")
     else:
-        L.append("_No flagged edges (Kalshi prices missing, or all within threshold)._")
+        L.append("_No flagged edges (Market prices missing, or all within threshold)._")
         L.append("")
 
     L.extend(_markdown_suppressed(m))
@@ -237,11 +238,11 @@ def _markdown_sheet(m: MatchReport) -> list[str]:
     if not rows:
         return []
     L = ["**Model fair values** (headline markets):", ""]
-    L.append("| Market | Fair | Kalshi | Gap |")
+    L.append("| Market | Fair | Price | Gap |")
     L.append("|---|---|---|---|")
     for sm in rows:
         fair = sm.fair_price_cents
-        kal = sm.kalshi_price_cents
+        kal = sm.market_price_cents
         gap = f"{abs(fair - kal)}¢" if kal is not None else "—"
         L.append(f"| {_selection_label(sm.fair_value)} | {fair}¢ | {_cents(kal)} | {gap} |")
     L.append("")
@@ -266,7 +267,7 @@ def _markdown_suppressed(m: MatchReport) -> list[str]:
 
 def _edge_label(e) -> str:
     # The rationale already embeds the market label; derive a short label here.
-    return e.rationale.split(" at ")[0].replace("Kalshi ", "") if e.rationale else "market"
+    return e.rationale.split(" at ")[0].replace("Market ", "") if e.rationale else "market"
 
 
 # --------------------------------------------------------------------------- #
@@ -276,7 +277,7 @@ def render_html(report: DailyReport) -> str:
     P: list[str] = []
     P.append("<div style=\"font-family:-apple-system,Segoe UI,Roboto,sans-serif;max-width:760px\">")
     P.append(
-        f"<h1>World Cup 2026 Kalshi Edge Screener — {report.report_date.isoformat()}</h1>"
+        f"<h1>World Cup 2026 {report.venue} Edge Screener — {report.report_date.isoformat()}</h1>"
     )
     P.append(
         f"<p style='color:#555'>xG strategy: <b>{report.strategy.value}</b> · "
@@ -311,7 +312,7 @@ def _html_match(m: MatchReport) -> str:
     match = m.match
     venue = match.venue_canonical or "venue TBD"
     kickoff = match.kickoff_central().strftime("%a %b %d, %I:%M %p %Z")
-    k = m.kalshi_1x2
+    k = m.market_1x2
 
     rows: list[str] = []
     rows.append(f"<h2>{match.home.name} vs {match.away.name}</h2>")
@@ -320,7 +321,7 @@ def _html_match(m: MatchReport) -> str:
     rows.append(f"<li>{_book_1x2(m.reference)}</li>")
     rows.append(f"<li>{_book_total(m.reference)}</li>")
     rows.append(
-        f"<li>Kalshi 1X2: H {_cents(k.get('home'))} / D {_cents(k.get('draw'))} / "
+        f"<li>Market 1X2: H {_cents(k.get('home'))} / D {_cents(k.get('draw'))} / "
         f"A {_cents(k.get('away'))}</li>"
     )
     if m.lambdas is not None:
@@ -340,9 +341,9 @@ def _html_match(m: MatchReport) -> str:
     if sheet:
         rows.append("<p><b>Model fair values</b> (headline markets):</p>")
         rows.append("<table border='1' cellpadding='6' cellspacing='0' style='border-collapse:collapse'>")
-        rows.append("<tr style='background:#f0f0f0'><th>Market</th><th>Fair</th><th>Kalshi</th><th>Gap</th></tr>")
+        rows.append("<tr style='background:#f0f0f0'><th>Market</th><th>Fair</th><th>Price</th><th>Gap</th></tr>")
         for sm in sheet:
-            kal = sm.kalshi_price_cents
+            kal = sm.market_price_cents
             gap = f"{abs(sm.fair_price_cents - kal)}¢" if kal is not None else "—"
             rows.append(
                 f"<tr><td>{_selection_label(sm.fair_value)}</td><td>{sm.fair_price_cents}¢</td>"
@@ -354,13 +355,13 @@ def _html_match(m: MatchReport) -> str:
         rows.append("<p><b>Flagged edges</b></p>")
         rows.append("<table border='1' cellpadding='6' cellspacing='0' style='border-collapse:collapse'>")
         rows.append(
-            "<tr style='background:#f0f0f0'><th>Market</th><th>Side</th><th>Kalshi</th>"
+            "<tr style='background:#f0f0f0'><th>Market</th><th>Side</th><th>Price</th>"
             "<th>Fair</th><th>Gap</th><th>Conf</th><th>Rationale</th></tr>"
         )
         for e in m.screen.flagged:
             rows.append(
                 f"<tr><td>{_edge_label(e)}</td><td>{e.side.value.upper()}</td>"
-                f"<td>{_cents(e.kalshi_price_cents)}</td><td>{_cents(e.fair_price_cents)}</td>"
+                f"<td>{_cents(e.market_price_cents)}</td><td>{_cents(e.fair_price_cents)}</td>"
                 f"<td>{e.gap_cents}¢</td><td>{(e.confidence or Confidence.LOW).value}</td>"
                 f"<td>{e.rationale}</td></tr>"
             )
@@ -371,7 +372,7 @@ def _html_match(m: MatchReport) -> str:
                 f"⚠️ <b>Correlated ({g.direction.replace('_', ' ')}):</b> {g.note}</p>"
             )
     else:
-        rows.append("<p><i>No flagged edges (Kalshi prices missing, or all within threshold).</i></p>")
+        rows.append("<p><i>No flagged edges (Market prices missing, or all within threshold).</i></p>")
 
     rows.append(_html_suppressed(m))
     return "\n".join(rows)
