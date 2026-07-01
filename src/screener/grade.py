@@ -281,12 +281,15 @@ def render_grade_markdown(g: GradeReport) -> str:
     if g.edges:
         L.append("## Flagged edges")
         L.append("")
-        L.append("| Match | Market | Side | Entry | Result | PnL |")
-        L.append("|---|---|---|---|---|---|")
+        # "Bucket" = the model-probability decile this market sits in, so you can
+        # cross-reference each bet against the calibration table below.
+        L.append("| Match | Market | Side | Fair | Bucket | Entry | Result | PnL |")
+        L.append("|---|---|---|---|---|---|---|---|")
         for e in g.edges:
+            lo = (e.fair_cents // 10) * 10
             L.append(
-                f"| {e.match_id} | {e.label} | {e.side.value.upper()} | {e.entry_cents}¢ | "
-                f"{e.result} | {e.pnl_cents:+d}¢ |"
+                f"| {e.match_id} | {e.label} | {e.side.value.upper()} | {e.fair_cents}¢ | "
+                f"{lo}–{lo + 10}% | {e.entry_cents}¢ | {e.result} | {e.pnl_cents:+d}¢ |"
             )
         L.append("")
 
